@@ -21,11 +21,11 @@ func _ready():
 	
 func _input(event):
 	if event.is_action_pressed("weapon_Up"):
-		Weapon_Indicator = min(Weapon_Indicator+1, Weapon_Stack.size()-1)
+		Weapon_Indicator = 0#min(Weapon_Indicator+1, Weapon_Stack.size()-1)
 		exit(Weapon_Stack[Weapon_Indicator])
 
 	if event.is_action_pressed("weapon_Down"):
-		Weapon_Indicator = max(Weapon_Indicator-1,0)
+		Weapon_Indicator = 1#max(Weapon_Indicator-1,0)
 		exit(Weapon_Stack[Weapon_Indicator])
 		
 func Initialize(_start_weapons: Array):
