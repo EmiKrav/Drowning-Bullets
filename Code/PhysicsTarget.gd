@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-var Health = 1
+var Health = 5
 
 func HitS(Damage, _Direction:= Vector3.ZERO, _Position:= Vector3.ZERO):
 	var HitPosition = _Position - get_global_transform().origin
