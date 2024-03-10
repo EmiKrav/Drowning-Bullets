@@ -1,11 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=20 format=3 uid="uid://bpwd8xwceq4yw"]
 
 [ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
+[ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
 [ext_resource type="PackedScene" uid="uid://bmghgskate302" path="res://Weapons/blasterB.glb" id="2_lglkj"]
 [ext_resource type="Script" path="res://Code/Weapons_Manager.gd" id="2_rf484"]
-[ext_resource type="Resource" uid="uid://c4ybepliryrjc" path="res://Resource/WeaponResource/ginklas1.tres" id="3_dp881"]
+[ext_resource type="Texture2D" uid="uid://cdhfoghmo0lqp" path="res://Models/ex8erdhiq3d81.webp" id="3_pmfur"]
 [ext_resource type="PackedScene" uid="uid://dco26joouxaa0" path="res://Weapons/blasterH.glb" id="3_vlg3w"]
-[ext_resource type="Resource" uid="uid://d1qk55e54tvvb" path="res://Resource/WeaponResource/ginklas2.tres" id="4_ysbc6"]
+[ext_resource type="Resource" uid="uid://c4ybepliryrjc" path="res://Resource/WeaponResource/Pistol.tres" id="4_1cvv8"]
+[ext_resource type="Resource" uid="uid://d1qk55e54tvvb" path="res://Resource/WeaponResource/Rifle.tres" id="5_daick"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xmjbp"]
 height = 1.5
@@ -84,10 +86,22 @@ tracks/5/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Bullet_point:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.15046, -0.427346, -0.877712)]
+}
 
 [sub_resource type="Animation" id="Animation_wrgva"]
 resource_name = "ginklas1"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -95,7 +109,7 @@ tracks/0/path = NodePath("blasterB2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -1.42721, 0), Vector3(0, -0.475039, -0.815631)]
@@ -107,7 +121,7 @@ tracks/1/path = NodePath("blasterB2:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
@@ -119,10 +133,22 @@ tracks/2/path = NodePath("blasterB2:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -3.14159, 0), Vector3(0, -3.14159, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.15046, -0.427346, -0.877712)]
 }
 
 [sub_resource type="Animation" id="Animation_qr3my"]
@@ -163,6 +189,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_p4v4j"]
@@ -224,7 +262,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_dbg4h"]
 resource_name = "ginklas2"
-length = 0.5
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -232,7 +270,7 @@ tracks/0/path = NodePath("blasterH2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -1.42721, 0), Vector3(0.131489, -0.517357, -0.893433)]
@@ -244,7 +282,7 @@ tracks/1/path = NodePath("blasterH2:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 3.14159, 0), Vector3(0, 3.14159, 0)]
@@ -256,10 +294,22 @@ tracks/2/path = NodePath("blasterH2:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true]
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.286257, -0.513731, -1.00666)]
 }
 
 [sub_resource type="Animation" id="Animation_hvtsm"]
@@ -300,6 +350,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_cdptp"]
@@ -375,6 +437,38 @@ _data = {
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_y8uxt")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_4880r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -50.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentWeapon" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CurrentAmmo" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_pmfur")
+stretch_mode = 3
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_xmjbp")
 
@@ -384,8 +478,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.872165, 0)
 
 [node name="Weapons_Manager" type="Node3D" parent="MainCamera"]
 script = ExtResource("2_rf484")
-_weapon_resources = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("3_dp881"), ExtResource("4_ysbc6")])
-Start_Weapons = Array[String](["ginklas1", "ginklas2"])
+_weapon_resources = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("4_1cvv8"), ExtResource("5_daick")])
+Start_Weapons = Array[String](["Pistol", "Rifle"])
 
 [node name="FPS_Rig" type="Node3D" parent="MainCamera/Weapons_Manager"]
 
@@ -403,4 +497,10 @@ libraries = {
 "": SubResource("AnimationLibrary_aweui")
 }
 
+[node name="Bullet_point" type="Marker3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15046, -0.427346, -0.877712)
+
+[connection signal="UpdateAmmo" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
+[connection signal="WeaponChanged" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
 [connection signal="animation_finished" from="MainCamera/Weapons_Manager/FPS_Rig/AnimationPlayer" to="MainCamera/Weapons_Manager" method="_on_animation_player_animation_finished"]

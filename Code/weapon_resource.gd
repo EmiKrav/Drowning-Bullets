@@ -14,3 +14,7 @@ class_name Weapons_Resource
 @export var Max_Ammo: int
 
 @export var Auto_Fire: bool
+
+@export_flags("HitScan", "Projectile") var Type
+@export var WeaponRange : int
+@export var Damage : int

@@ -1,9 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://47yfj7lkslgs"]
+[gd_scene load_steps=23 format=3 uid="uid://47yfj7lkslgs"]
 
 [ext_resource type="Shader" path="res://shader/water.gdshader" id="1_8w4uv"]
 [ext_resource type="Shader" path="res://shader/dangus.gdshader" id="2_es5u7"]
 [ext_resource type="Texture2D" uid="uid://dosxv1o3lf5s5" path="res://shader/360_F_297051706_mTJ80PBp0BEzY7C73g2sG4pb2KCSvhgY.jpg" id="3_fbihj"]
 [ext_resource type="PackedScene" uid="uid://bpwd8xwceq4yw" path="res://Scenes/FPS_Char.tscn" id="4_i5d3a"]
+[ext_resource type="PackedScene" uid="uid://cyo0lojkkrnvk" path="res://Models/terrain.blend" id="5_3kqd1"]
+[ext_resource type="Script" path="res://Code/PhysicsTarget.gd" id="6_y30mv"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_65yyw"]
 noise_type = 2
@@ -63,6 +65,10 @@ ambient_light_source = 3
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h8rg0"]
 size = Vector3(1.93579, 1, 1.92712)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y51mf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lns33"]
 
 [node name="Ezeras" type="Node3D"]
 
@@ -124,4 +130,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0357666, 0, 0.0392456)
 shape = SubResource("BoxShape3D_h8rg0")
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("4_i5d3a")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.41025, 1.2046, 4.89427)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78.2069, -17.0477, 9.35808)
+
+[node name="terrain" parent="." instance=ExtResource("5_3kqd1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.9618, 1.69595, 9.62861)
+
+[node name="Monster" type="RigidBody3D" parent="." groups=["Target"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.8779, -17.4906, 6.31276)
+script = ExtResource("6_y30mv")
+
+[node name="murloc" type="MeshInstance3D" parent="Monster"]
+mesh = SubResource("BoxMesh_y51mf")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Monster"]
+shape = SubResource("BoxShape3D_lns33")
