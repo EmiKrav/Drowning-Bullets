@@ -143,9 +143,9 @@ func HitScanCollision(CollisionPoint):
 		world.add_child(HitIndicator)
 		HitIndicator.global_translate(BulletCollision.position)
 		
-		HitScanDamage(BulletCollision.collider)
+		HitScanDamage(BulletCollision.collider, BulletDirection, BulletCollision.position)
 		
-func  HitScanDamage(Collider):	
+func  HitScanDamage(Collider, Direction, Position):	
 	if Collider.is_in_group("Target") and Collider.has_method("HitS"):
-		Collider.HitS(current_weapon.Damage)
+		Collider.HitS(current_weapon.Damage, Direction, Position)
 	
