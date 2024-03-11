@@ -30,6 +30,7 @@ func Menu():
 
 func _on_button_pressed():
 	var monstrai_instance = monstrai.instantiate()
+	monstrai_instance.position = Vector3(-68.51, -15.642, 28.035 )
 	
 	#for child in monstrai_instance.get_children():#Iterate trough the children  
 		#print(child.get_name())

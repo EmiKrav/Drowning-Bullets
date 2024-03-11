@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6s3i8c17cgb7"]
+[gd_scene load_steps=8 format=3 uid="uid://c6s3i8c17cgb7"]
 
 [ext_resource type="Script" path="res://Code/PhysicsTarget.gd" id="1_cqwy1"]
+[ext_resource type="Script" path="res://Scenes/monster.gd" id="1_emt7t"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1stsn"]
 resource_name = "Ghost_Secondary"
@@ -75,6 +76,7 @@ radius = 1.03399
 height = 2.874
 
 [node name="monster" type="Node3D"]
+script = ExtResource("1_emt7t")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["Target"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77092, -0.19043)
