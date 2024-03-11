@@ -6,22 +6,25 @@ extends Node3D
 
 var monstrai = preload("res://Scenes/monster.tscn")
 
-func _ready():
-	for child in get_children():#Iterate trough the children  
-		print(child.get_name())
-
+var spausta = false;
 
 func _process(_delta):
-	if get_child_count() == 0:
-		node.process_mode = PROCESS_MODE_DISABLED
+	if get_child_count() == 0 &&  !spausta:
+		spausta = true
+		Menu()
 		
-		node.set_visible(false)
 		
-		for child in node.get_children():
-			child.set_visible(false)
+func Menu():
+	await get_tree().create_timer(3.0).timeout
+	node.process_mode = PROCESS_MODE_DISABLED
 		
-		HBox.visible = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+	node.set_visible(false)
+		
+	for child in node.get_children():
+		child.set_visible(false)
+		
+	HBox.visible = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 		
 		
 
@@ -33,7 +36,6 @@ func _on_button_pressed():
 		#add_child(child)
 	
 	add_child(monstrai_instance)
-	
 	node.set_visible(true)
 	for child in node.get_children():
 			child.set_visible(true)
@@ -41,4 +43,5 @@ func _on_button_pressed():
 	HBox.visible = false
 	node.process_mode = PROCESS_MODE_INHERIT
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+	spausta = false
 	

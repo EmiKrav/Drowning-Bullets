@@ -23,7 +23,7 @@ var Weapon_List = {}
 
 @export var Start_Weapons: Array[String]
 
-enum {NULL,HITSCAN,PROJECTILE}
+enum {NULL,HITSCAN}
 
 func _ready():
 	Initialize(Start_Weapons)
@@ -93,8 +93,6 @@ func shoot():
 					print("Weapon Type not chosen")
 				HITSCAN:
 					HitScanCollision(CameraCollision)
-				PROJECTILE:
-					pass
 	else:
 		reload()
 	
