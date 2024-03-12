@@ -2,6 +2,7 @@ extends RigidBody3D
 
 var Health = 5
 
+
 func HitS(Damage, _Direction:= Vector3.ZERO, _Position:= Vector3.ZERO):
 	var HitPosition = _Position - get_global_transform().origin
 	
@@ -12,3 +13,6 @@ func HitS(Damage, _Direction:= Vector3.ZERO, _Position:= Vector3.ZERO):
 	
 	if _Direction != Vector3.ZERO:
 		apply_impulse((_Direction*Damage), HitPosition)
+		
+func Hurt():
+	print("Health: " + str(Health));

@@ -80,6 +80,8 @@ script = ExtResource("1_emt7t")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." groups=["Target"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.77092, -0.19043)
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_cqwy1")
 
 [node name="Ghost_Skull" type="MeshInstance3D" parent="RigidBody3D"]

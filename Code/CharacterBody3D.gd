@@ -9,6 +9,8 @@ var CameraRotation = Vector2(0,0)
 var MouseSensitivity = 0.004
 
 
+var Health = 5
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -36,7 +38,7 @@ func CameraLook(Movement: Vector2):
 	
 	
 	
-
+var chase = true;
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -58,3 +60,20 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		if collision.get_collider().has_method("Hurt"):
+			if chase == true:
+				chase = false
+				take_damage()
+				return			
+			
+
+func take_damage():
+	Health -=1;
+	print("Health", str(Health)) 
+	await get_tree().create_timer(1.0).timeout
+	chase = true;
+	return;
+	
