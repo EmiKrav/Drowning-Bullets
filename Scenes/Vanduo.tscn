@@ -1,0 +1,130 @@
+[gd_scene load_steps=19 format=3 uid="uid://bpbtfb1fc33do"]
+
+[ext_resource type="Shader" path="res://shader/water.gdshader" id="1_1aov4"]
+[ext_resource type="PackedScene" uid="uid://bpwd8xwceq4yw" path="res://Scenes/FPS_Char.tscn" id="2_qf8tf"]
+[ext_resource type="Shader" path="res://shader/dangus.gdshader" id="3_h1lb3"]
+[ext_resource type="Texture2D" uid="uid://dosxv1o3lf5s5" path="res://shader/360_F_297051706_mTJ80PBp0BEzY7C73g2sG4pb2KCSvhgY.jpg" id="4_ivuoq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ybxs7"]
+noise_type = 2
+seed = 6
+frequency = 0.0141
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xeu05"]
+seamless = true
+seamless_blend_skirt = 0.179
+as_normal_map = true
+bump_strength = 4.0
+noise = SubResource("FastNoiseLite_ybxs7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8cvch"]
+render_priority = 0
+shader = ExtResource("1_1aov4")
+shader_parameter/water_color = Color(0.027451, 0.203922, 0.309804, 1)
+shader_parameter/UV_scale = 2.5
+shader_parameter/time_scale = 0.75
+shader_parameter/normal = 0.0
+shader_parameter/roughness = 0.5
+shader_parameter/abberatiom_r = null
+shader_parameter/abberatiom_g = null
+shader_parameter/abberatiom_b = null
+shader_parameter/highlights_time_scale = 0.041
+shader_parameter/water_normal_noise = SubResource("NoiseTexture2D_xeu05")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ef0q4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kj8bh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6e5ap"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_la2kg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s12h8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_at88o"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_phidx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8n4uf"]
+size = Vector3(1.93579, 1, 1.92712)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c3b5d"]
+shader = ExtResource("3_h1lb3")
+shader_parameter/skycolor = Color(0.392157, 0.627451, 0.905882, 1)
+shader_parameter/horizoncolor = Color(0.560784, 0.690196, 0.858824, 1)
+shader_parameter/skytexture = ExtResource("4_ivuoq")
+
+[sub_resource type="Sky" id="Sky_drj7s"]
+sky_material = SubResource("ShaderMaterial_c3b5d")
+
+[sub_resource type="Environment" id="Environment_fkpwm"]
+background_mode = 2
+sky = SubResource("Sky_drj7s")
+sky_custom_fov = 96.7
+ambient_light_source = 3
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(5.68424, 0, 0, 0, 0.929109, 0, 0, 0, 4.35157, 0, -1.18308, 0)
+material_override = SubResource("ShaderMaterial_8cvch")
+mesh = SubResource("PlaneMesh_ef0q4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.11039, 0, 0, 0, 4.04648, 0, 0, 0, 8.20077, 6.52459, -0.772405, -0.621696)
+mesh = SubResource("BoxMesh_kj8bh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_6e5ap")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.11039, 0, 0, 0, 4.04648, 0, 0, 0, 8.20077, -6.11626, -0.772405, -0.621696)
+mesh = SubResource("BoxMesh_kj8bh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("BoxShape3D_la2kg")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.3596e-07, 0, 11.9913, 0, 3.43856, 0, -3.11039, 0, -5.24156e-07, -0.0649328, -1.32061, -5.81958)
+mesh = SubResource("BoxMesh_kj8bh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("BoxShape3D_s12h8")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1.3596e-07, 0, 11.9913, 0, 3.43856, 0, -3.11039, 0, -5.24156e-07, -0.0649328, -1.32061, 5.09192)
+mesh = SubResource("BoxMesh_kj8bh")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
+shape = SubResource("BoxShape3D_at88o")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="."]
+transform = Transform3D(12.6229, 0, 0, 0, 1, 0, 0, 0, 13.0634, 0, -2.69494, 0)
+mesh = SubResource("PlaneMesh_phidx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D6"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D6/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0357666, 0, 0.0392456)
+shape = SubResource("BoxShape3D_8n4uf")
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_qf8tf")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60502, 0)
+collision_layer = 3
+collision_mask = 3
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.0732556, 0.997313, 0, -0.997313, -0.0732556, 0, 6.30985, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_fkpwm")

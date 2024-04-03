@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://nabsb2h2n4bn"]
+
+[ext_resource type="Script" path="res://Code/Pause.gd" id="1_fetjn"]
+
+[node name="Pause" type="Node3D"]
+process_mode = 2
+script = ExtResource("1_fetjn")
+
+[node name="Pause" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.84998
+offset_bottom = -40.965
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Pause/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 100
+text = "Pristabdyta"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Leave" type="Button" parent="Pause/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 100
+text = "Pasiduoti"
+
+[connection signal="pressed" from="Pause/VBoxContainer/Leave" to="." method="_on_leave_pressed"]

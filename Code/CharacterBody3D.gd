@@ -1,9 +1,12 @@
 extends CharacterBody3D
 
 @onready var MainCamera = get_node("%MainCamera")
+var pauze = preload("res://Scenes/Pause.tscn")
+
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+const  HitStag = 10.0
 
 var CameraRotation = Vector2(0,0)
 var MouseSensitivity = 0.004
@@ -13,13 +16,26 @@ var Health = 5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var paused
+
+signal PlayerHit
 
 func _ready():
+	paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
+	process_mode = Node.PROCESS_MODE_PAUSABLE
 	
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		if get_tree().paused == false && !paused:	
+			var w = pauze.instantiate()
+			get_parent().add_child(w)
+			paused = true
+			get_tree().paused = true;
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		else:
+			get_tree().paused = false;
+			paused = false
 		
 	if event is InputEventMouseMotion:
 		var MouseEvent = event.relative *MouseSensitivity;
@@ -50,7 +66,7 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var input_dir = Input.get_vector("A", "D", "W", "S")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -68,6 +84,10 @@ func _physics_process(delta):
 				chase = false
 				take_damage()
 				return			
+				
+func Hit(dir):
+	emit_signal("PlayerHit")
+	velocity += dir * HitStag
 			
 
 func take_damage():

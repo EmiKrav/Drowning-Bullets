@@ -1,0 +1,62 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn31loa1jip2k"]
+
+[ext_resource type="Texture2D" uid="uid://c1qjjhp4lkqfy" path="res://textures/spring-8670806_1920.jpg" id="1_qtxje"]
+[ext_resource type="Script" path="res://Code/Menu.gd" id="1_tcgxk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wakbc"]
+texture = ExtResource("1_qtxje")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_tcgxk")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxTexture_wakbc")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Panel"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 23.0
+offset_right = -1.07495
+offset_bottom = -28.47
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Start" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Pradėti"
+
+[node name="Arsenal" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 100
+text = "Sandelys
+"
+
+[node name="Quit" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 100
+text = "Išeiti"
+
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer/Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
