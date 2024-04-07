@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=26 format=3 uid="uid://bpwd8xwceq4yw"]
 
 [ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
 [ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bxy23k8knsy0" path="res://Weapons/blaster_b_2.tscn" id="7_dw7wk"]
 [ext_resource type="PackedScene" uid="uid://bk2v6irqk1g3p" path="res://Weapons/blaster_h_2.tscn" id="8_y2l12"]
 [ext_resource type="Texture2D" uid="uid://ccvs3ovh46py6" path="res://textures/blue-glowing-lights-effects-isolated-solar-flare-with-beams-and-spotlight-glow-effect-starburst-with-sparkles-png.png" id="9_ijxvl"]
+[ext_resource type="Script" path="res://Code/Area3D.gd" id="10_ytx0w"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xmjbp"]
 radius = 0.843494
@@ -570,9 +571,12 @@ material = SubResource("StandardMaterial3D_4m8u8")
 transparency = 1
 albedo_texture = ExtResource("9_ijxvl")
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ingdx"]
+radius = 15.837
+
 [node name="Player" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 5
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_y8uxt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -585,6 +589,12 @@ anchor_bottom = 1.0
 offset_top = -50.0
 offset_right = 40.0
 grow_vertical = 0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PickedUp" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
 layout_mode = 2
@@ -613,18 +623,32 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -50.0
+offset_left = -88.0
+offset_top = -74.0
 grow_horizontal = 0
 grow_vertical = 0
+size_flags_horizontal = 8
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="ReserveLife" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer4"]
+modulate = Color(0.568627, 0, 0.101961, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+text = "Reserve: "
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 10
 
 [node name="Life" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3"]
 modulate = Color(0.568627, 0, 0.101961, 1)
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_font_sizes/font_size = 30
 
@@ -679,14 +703,27 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15046, -0.427346, -0.877712)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
-transform = Transform3D(0.245, 0, 0, 0, 0.233735, -0.0734363, 0, 0.0734363, 0.233735, 0, -1.25746, 0)
+transform = Transform3D(0.245, 0, 0, 0, 0.233735, -0.0734362, 0, 0.0734362, 0.233735, 0, -1.25746, 0)
 visible = false
 mesh = SubResource("PlaneMesh_u46j3")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb30v")
 
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("10_ytx0w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_ingdx")
+
+[connection signal="AmmoRasta" from="." to="CanvasLayer" method="_on_player_ammo_rasta"]
 [connection signal="Banga" from="." to="CanvasLayer" method="_on_player_banga"]
+[connection signal="LifeReplene" from="." to="CanvasLayer" method="_on_player_life_replene"]
 [connection signal="PlayerHit" from="." to="CanvasLayer" method="_on_player_player_hit"]
+[connection signal="AmmoRasta" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_ammo_rasta"]
 [connection signal="Mousesensiv" from="MainCamera/Weapons_Manager" to="." method="_on_weapons_manager_mousesensiv"]
 [connection signal="UpdateAmmo" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
 [connection signal="WeaponChanged" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
 [connection signal="animation_finished" from="MainCamera/Weapons_Manager/FPS_Rig/AnimationPlayer" to="MainCamera/Weapons_Manager" method="_on_animation_player_animation_finished"]
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

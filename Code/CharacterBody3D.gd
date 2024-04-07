@@ -11,7 +11,7 @@ const  HitStag = 5.0
 var CameraRotation = Vector2(0,0)
 var MouseSensitivity = 0.004
 
-
+var MaxHealth = 100
 var Health = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -20,6 +20,8 @@ var paused
 
 signal PlayerHit
 signal Banga
+signal LifeReplene
+signal AmmoRasta
 
 func _ready():
 	paused = false
@@ -64,6 +66,18 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_just_pressed("Drink"):
+		var trukstaHp = MaxHealth - Health
+		if Global.life > 0 && Health < MaxHealth:
+			if (Global.life - trukstaHp >= 0):
+				Health += trukstaHp
+				Global.LifeSunaudota(trukstaHp)
+			else:
+				Health += Global.life
+				Global.LifeSunaudota(Global.life)
+			emit_signal("LifeReplene", Health)
+		
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -115,3 +129,8 @@ func _on_weapons_manager_mousesensiv(prizzomintas):
 
 func _on_monstrai_banga():
 	emit_signal("Banga")
+
+func lifeUpdate():
+	emit_signal("LifeReplene", Health)
+func AmmoUpdate():
+	emit_signal("AmmoRasta")

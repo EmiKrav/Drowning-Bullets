@@ -40,9 +40,7 @@ environment = SubResource("Environment_tkgdn")
 [node name="Player" parent="Map" instance=ExtResource("4_i5d3a")]
 unique_name_in_owner = true
 process_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.3002, -19.1271, 15.3581)
-collision_layer = 3
-collision_mask = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71.5555, -19.2043, 15.4176)
 
 [node name="Monstrai" type="Node3D" parent="Map"]
 unique_name_in_owner = true

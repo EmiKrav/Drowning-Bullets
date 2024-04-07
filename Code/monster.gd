@@ -7,6 +7,8 @@ const  AttackRange = 4
 var stuck = false
 var StateMachine
 
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
 #var Player = null
 #@export var PlayerPath : NodePath
 var alive = true
@@ -16,6 +18,8 @@ const  Speed = 5.0
 @onready var AnimTree = $AnimationTree
 @onready var bar = $Gyvyb
 var fullhealth = Health
+var AmmoBox = preload("res://Scenes/AmmoBox.tscn")
+var Life = preload("res://Scenes/Gyvybes.tscn")
 
 signal Dead
 
@@ -24,31 +28,32 @@ func _ready():
 	MaxHealth = bar.scale.x
 
 	
-func _physics_process(_delta):
-	
-
-		velocity = Vector3.ZERO	
-		
-		match StateMachine.get_current_node():
-			"Fast_Flying":
-				NavAgent.set_target_position(Player.global_transform.origin)
-				var NextNavPoint = NavAgent.get_next_path_position()
-				velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
-					
-				look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
-						Player.global_position.z + velocity.z), Vector3.UP)
-			"Punch":
-				look_at(Vector3(Player.global_position.x, Player.global_position.y,
-						Player.global_position.z), Vector3.UP)
-							
-							
-		AnimTree.set("parameters/conditions/Punch", TargetInRange())
-		AnimTree.set("parameters/conditions/Fly", !TargetInRange())
-		AnimTree.set("parameters/conditions/Dead", !Alive())
-		
-		AnimTree.get("parameters/playback")
-			
+func _physics_process(delta):
+	velocity = Vector3.ZERO	
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 		move_and_slide()
+		
+	match StateMachine.get_current_node():
+		"Fast_Flying":
+			NavAgent.set_target_position(Player.global_transform.origin)
+			var NextNavPoint = NavAgent.get_next_path_position()
+			velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
+					
+			look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
+					Player.global_position.z + velocity.z), Vector3.UP)
+		"Punch":
+			look_at(Vector3(Player.global_position.x, Player.global_position.y,
+					Player.global_position.z), Vector3.UP)
+							
+							
+	AnimTree.set("parameters/conditions/Punch", TargetInRange())
+	AnimTree.set("parameters/conditions/Fly", !TargetInRange())
+	AnimTree.set("parameters/conditions/Dead", !Alive())
+		
+	AnimTree.get("parameters/playback")
+			
+	move_and_slide()
 		
 func TargetInRange():
 	return global_position.distance_to(Player.global_position) < AttackRange
@@ -59,6 +64,14 @@ func HitFinished():
 		Player.Hit(dir)
 
 func DeadAnim():
+	var Ammoinstance = AmmoBox.instantiate()
+	Ammoinstance.position = global_position + Vector3(0,0.5,0)
+	get_parent().get_parent().add_child(Ammoinstance)
+	
+	var Lifeinstance = Life.instantiate()
+	Lifeinstance.position = global_position + Vector3(0.5,0.5,0)
+	get_parent().get_parent().add_child(Lifeinstance)
+	
 	queue_free()
 	
 func Alive():

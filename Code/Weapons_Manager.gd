@@ -30,6 +30,8 @@ var prizoominta = false
 
 enum {NULL,HITSCAN}
 
+signal AmmoRasta
+
 func _ready():
 	Initialize(Start_Weapons)
 	
@@ -120,6 +122,9 @@ func reload():
 	if current_weapon.Current_Ammo == current_weapon.Magazine:
 		return
 	elif !AnimPlayer.is_playing():
+		if Global.Ammo > 0:
+			current_weapon.Reserve_Ammo += Global.Ammo
+			Global.AmmoSunaudota(Global.Ammo)
 		if current_weapon.Reserve_Ammo != 0:
 			AnimPlayer.play(current_weapon.Reload_Anim)
 			var Reload_Ammount = min(current_weapon.Magazine-current_weapon.Current_Ammo,
@@ -130,7 +135,7 @@ func reload():
 
 			
 			emit_signal("UpdateAmmo", [current_weapon.Current_Ammo, current_weapon.Reserve_Ammo])
-			
+			emit_signal("AmmoRasta")
 func GetCameraCollision()->Vector3:
 	var camera = get_viewport().get_camera_3d()
 	var viewport = get_viewport().get_size()

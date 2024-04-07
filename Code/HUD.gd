@@ -5,10 +5,14 @@ extends CanvasLayer
 #@onready var CurrenrtWeaponStackLabel = $VBoxContainer/HBoxContainer3/WeaponStack
 @onready var Life = $VBoxContainer2/HBoxContainer3/Life
 @onready var wave = $VBoxContainer3/HBoxContainer3/Wave
+@onready var ReserveLife = $VBoxContainer2/HBoxContainer4/ReserveLife
+@onready var ReserveAmmo = $VBoxContainer/HBoxContainer3/PickedUp
 
 func _ready():
 		Life.set_text("100")
 		wave.set_text("Banga: " +str(Global.banga))
+		ReserveLife.set_text("Gėrymai: " +str(Global.life))
+		ReserveAmmo.set_text("Kišenėj: " +str(Global.Ammo))
 
 func _on_weapons_manager_update_ammo(Ammo):
 	CurrenrtAmmoLabel.set_text(str(Ammo[0])+" /" + str(Ammo[1]))
@@ -32,3 +36,17 @@ func _on_player_player_hit(Gyvybes):
 
 func _on_player_banga():
 	wave.set_text("Banga: " +str(Global.banga))
+
+
+func _on_player_life_replene(Gyvybes):
+	Life.set_text(str(Gyvybes))
+	ReserveLife.set_text("Gėrymai: " +str(Global.life/10))
+	
+func _on_player_ammo_rasta():
+	ReserveAmmo.set_text("Kišenėj: " +str(Global.Ammo))
+	
+
+
+func _on_weapons_manager_ammo_rasta():
+	ReserveAmmo.set_text("Kišenėj: " +str(Global.Ammo))
+	
