@@ -1,22 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=13 format=3 uid="uid://c4a8v1loa2mne"]
 
-[ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
-[ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
-[ext_resource type="Script" path="res://Code/Weapons_Manager.gd" id="2_rf484"]
-[ext_resource type="Texture2D" uid="uid://cdhfoghmo0lqp" path="res://Models/ex8erdhiq3d81.webp" id="3_pmfur"]
-[ext_resource type="Resource" uid="uid://c4ybepliryrjc" path="res://Resource/WeaponResource/Pistol.tres" id="4_1cvv8"]
-[ext_resource type="Resource" uid="uid://d1qk55e54tvvb" path="res://Resource/WeaponResource/Rifle.tres" id="5_daick"]
-[ext_resource type="PackedScene" uid="uid://bxy23k8knsy0" path="res://Weapons/blaster_b_2.tscn" id="7_dw7wk"]
-[ext_resource type="PackedScene" uid="uid://bk2v6irqk1g3p" path="res://Weapons/blaster_h_2.tscn" id="8_y2l12"]
-[ext_resource type="Texture2D" uid="uid://ccvs3ovh46py6" path="res://textures/blue-glowing-lights-effects-isolated-solar-flare-with-beams-and-spotlight-glow-effect-starburst-with-sparkles-png.png" id="9_ijxvl"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xmjbp"]
-radius = 0.843494
-height = 2.79546
+[ext_resource type="PackedScene" uid="uid://bxy23k8knsy0" path="res://Weapons/blaster_b_2.tscn" id="1_2vxkg"]
+[ext_resource type="PackedScene" uid="uid://bk2v6irqk1g3p" path="res://Weapons/blaster_h_2.tscn" id="2_0bv3t"]
 
 [sub_resource type="Animation" id="Animation_xf70o"]
 length = 0.001
-step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -100,42 +88,6 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.15046, -0.427346, -0.877712)]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("MeshInstance3D:visible")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.001),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("MeshInstance3D:position")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
-"times": PackedFloat32Array(0.001),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, -1.25746, 0)]
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("MeshInstance3D:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.30442, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_wrgva"]
@@ -274,7 +226,6 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_t3ro5"]
 resource_name = "ginklas1sauti"
 length = 0.2
-step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -298,42 +249,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, -3.14159, 0), Vector3(-0.431288, -3.14159, -6.94854e-08), Vector3(0, -3.14159, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MeshInstance3D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MeshInstance3D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.245, 0.245, 0.245), Vector3(0.125, 0.125, 0.125)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MeshInstance3D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.13853, -0.421484, -0.879495), Vector3(0.161408, -0.397254, -0.866446), Vector3(0.15899, -0.419839, -0.865138)]
 }
 
 [sub_resource type="Animation" id="Animation_dbg4h"]
@@ -496,54 +411,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0.131489, -0.517357, -0.893433), Vector3(0.131489, -0.517357, -0.893433), Vector3(0.131489, -0.517357, -0.893433)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("MeshInstance3D:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("MeshInstance3D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.245, 0.245, 0.245), Vector3(0.125, 0.125, 0.125)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("MeshInstance3D:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.280344, -0.520486, -1.03468), Vector3(0.284852, -0.420443, -0.969776), Vector3(0.280477, -0.489446, -1.01992)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("MeshInstance3D:rotation")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.30442, 0, 0), Vector3(0.752586, 0, 0), Vector3(0, 0, 0)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aweui"]
 _data = {
@@ -558,135 +425,22 @@ _data = {
 "ginklas2sauti": SubResource("Animation_l8tx6")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4m8u8"]
-transparency = 1
-emission_enabled = true
-emission_texture = ExtResource("9_ijxvl")
+[node name="FPS_Rig" type="Node3D"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_u46j3"]
-material = SubResource("StandardMaterial3D_4m8u8")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gb30v"]
-transparency = 1
-albedo_texture = ExtResource("9_ijxvl")
-
-[node name="Player" type="CharacterBody3D"]
-collision_layer = 2
-collision_mask = 5
-script = ExtResource("1_y8uxt")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-script = ExtResource("2_4880r")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -50.0
-offset_right = 40.0
-grow_vertical = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-
-[node name="CurrentWeapon" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
-layout_mode = 2
-
-[node name="CurrentAmmo" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_pmfur")
-stretch_mode = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -50.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 10
-
-[node name="Life" type="Label" parent="CanvasLayer/VBoxContainer2/HBoxContainer3"]
-modulate = Color(0.568627, 0, 0.101961, 1)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 30
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 50.0
-grow_horizontal = 0
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer3"]
-layout_mode = 2
-
-[node name="Wave" type="Label" parent="CanvasLayer/VBoxContainer3/HBoxContainer3"]
-modulate = Color(0.568627, 0, 0.101961, 1)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 20
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.568108, 0)
-shape = SubResource("CapsuleShape3D_xmjbp")
-
-[node name="MainCamera" type="Camera3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2256, 0.311643)
-
-[node name="Weapons_Manager" type="Node3D" parent="MainCamera"]
-script = ExtResource("2_rf484")
-_weapon_resources = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("4_1cvv8"), ExtResource("5_daick")])
-Start_Weapons = Array[String](["Pistol", "Rifle"])
-
-[node name="FPS_Rig" type="Node3D" parent="MainCamera/Weapons_Manager"]
-
-[node name="blasterB2" parent="MainCamera/Weapons_Manager/FPS_Rig" instance=ExtResource("7_dw7wk")]
+[node name="blasterB2" parent="." instance=ExtResource("1_2vxkg")]
 transform = Transform3D(-1, 0, -2.53518e-06, 0, 1, 0, 2.53518e-06, 0, -1, 0, -1.42721, 0)
 visible = false
 
-[node name="blasterH2" parent="MainCamera/Weapons_Manager/FPS_Rig" instance=ExtResource("8_y2l12")]
+[node name="blasterH2" parent="." instance=ExtResource("2_0bv3t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42721, 0)
 visible = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="MainCamera/Weapons_Manager/FPS_Rig"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_aweui")
 }
 
-[node name="Bullet_point" type="Marker3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
+[node name="Bullet_point" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15046, -0.427346, -0.877712)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
-transform = Transform3D(0.245, 0, 0, 0, 0.233735, -0.0734363, 0, 0.0734363, 0.233735, 0, -1.25746, 0)
-visible = false
-mesh = SubResource("PlaneMesh_u46j3")
-surface_material_override/0 = SubResource("StandardMaterial3D_gb30v")
-
-[connection signal="Banga" from="." to="CanvasLayer" method="_on_player_banga"]
-[connection signal="PlayerHit" from="." to="CanvasLayer" method="_on_player_player_hit"]
-[connection signal="Mousesensiv" from="MainCamera/Weapons_Manager" to="." method="_on_weapons_manager_mousesensiv"]
-[connection signal="UpdateAmmo" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
-[connection signal="WeaponChanged" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
-[connection signal="animation_finished" from="MainCamera/Weapons_Manager/FPS_Rig/AnimationPlayer" to="MainCamera/Weapons_Manager" method="_on_animation_player_animation_finished"]

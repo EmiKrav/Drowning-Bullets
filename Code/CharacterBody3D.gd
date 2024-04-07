@@ -2,23 +2,24 @@ extends CharacterBody3D
 
 @onready var MainCamera = get_node("%MainCamera")
 var pauze = preload("res://Scenes/Pause.tscn")
+var mirtis = preload("res://Scenes/Mirtis.tscn")
 
-
-const SPEED = 5.0
+const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
-const  HitStag = 10.0
+const  HitStag = 5.0
 
 var CameraRotation = Vector2(0,0)
 var MouseSensitivity = 0.004
 
 
-var Health = 5
+var Health = 100
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var paused
 
 signal PlayerHit
+signal Banga
 
 func _ready():
 	paused = false
@@ -86,14 +87,31 @@ func _physics_process(delta):
 				return			
 				
 func Hit(dir):
-	emit_signal("PlayerHit")
+	Health -= 1
+	emit_signal("PlayerHit", Health)
 	velocity += dir * HitStag
+	if (Health <= 0 ):
+		get_tree().paused = true;
+		var w = mirtis.instantiate()
+		get_parent().add_child(w)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 			
 
 func take_damage():
 	Health -=1;
-	print("Health", str(Health)) 
+	#print("Health", str(Health)) 
 	await get_tree().create_timer(1.0).timeout
 	chase = true;
 	return;
 	
+
+
+func _on_weapons_manager_mousesensiv(prizzomintas):
+	if prizzomintas:
+		MouseSensitivity -= 0.002
+	else:
+		MouseSensitivity += 0.002
+
+
+func _on_monstrai_banga():
+	emit_signal("Banga")

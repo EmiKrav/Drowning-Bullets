@@ -2,10 +2,12 @@ extends Node3D
 
 signal WeaponChanged
 signal UpdateAmmo
-#signal UpdateWeaponStack
+signal Mousesensiv
 
 @onready var AnimPlayer = get_node("%AnimationPlayer")
 @onready var BulletPoint = get_node("%Bullet_point")
+
+@onready var MainCamera = get_node("%MainCamera")
 
 var Bullet = preload("res://Scenes/bullet.tscn")
 
@@ -18,6 +20,9 @@ var Weapon_Indicator = 0
 var Next_Weapon: String
 
 var Weapon_List = {}
+
+var FOV = -40
+var prizoominta = false
 
 @export var _weapon_resources: Array[Weapons_Resource]
 
@@ -42,6 +47,8 @@ func _input(event):
 		
 	if event.is_action_pressed("Reload"):
 		reload()
+	if event.is_action_pressed("zoom"):
+		zoom(FOV)
 		
 func Initialize(_start_weapons: Array):
 	for weapon in _weapon_resources:
@@ -80,6 +87,7 @@ func _on_animation_player_animation_finished(anim_name):
 	if anim_name == current_weapon.Shoot_Anim && current_weapon.Auto_Fire == true:
 		if Input.is_action_pressed("Shoot"):
 			shoot()
+		
 
 func shoot():
 	if current_weapon.Current_Ammo != 0:
@@ -95,6 +103,18 @@ func shoot():
 					HitScanCollision(CameraCollision)
 	else:
 		reload()
+
+func zoom(zoomas):
+	if (!prizoominta):
+		MainCamera.fov += zoomas
+		prizoominta = true
+		emit_signal("Mousesensiv", prizoominta)
+	else:
+		MainCamera.fov -= zoomas
+		prizoominta = false		
+		emit_signal("Mousesensiv", prizoominta)
+	
+	
 	
 func reload():
 	if current_weapon.Current_Ammo == current_weapon.Magazine:

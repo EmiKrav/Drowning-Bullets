@@ -5,8 +5,8 @@ extends Node3D
 
 
 
-func _on_player_player_hit():
+func _on_player_player_hit(_Gyvybes):
 	HitReact.visible = true
 	await get_tree().create_timer(0.2).timeout
 	HitReact.visible = false
-	
+

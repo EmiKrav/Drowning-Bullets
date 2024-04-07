@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://usqo178b00x"]
+
+[ext_resource type="Script" path="res://Code/GoBackToMenu.gd" id="1_fkqjq"]
+
+[node name="Mirtis" type="Node3D"]
+process_mode = 2
+
+[node name="Mirtis" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Mirtis"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1.84998
+offset_bottom = -40.965
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="Mirtis/VBoxContainer"]
+modulate = Color(1, 0.443137, 0.0705882, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 100
+text = "Mirei"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Button" parent="Mirtis/VBoxContainer"]
+modulate = Color(1, 0.443137, 0.0705882, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_font_sizes/font_size = 100
+text = "Menu
+"
+script = ExtResource("1_fkqjq")
+
+[connection signal="pressed" from="Mirtis/VBoxContainer/Menu" to="Mirtis/VBoxContainer/Menu" method="_on_Mir_pressed"]
