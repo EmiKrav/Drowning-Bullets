@@ -1,4 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmsghs7g66w5f"]
+[gd_scene load_steps=7 format=3 uid="uid://cmsghs7g66w5f"]
+
+[ext_resource type="Script" path="res://Code/UpgradeBox.gd" id="1_ygdj5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jxcke"]
+size = Vector3(1.84554, 1.82086, 3.11182)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqmeb"]
 resource_name = "Material"
@@ -44,8 +49,18 @@ albedo_color = Color(0.188235, 0.380392, 0.0509804, 1)
 
 [node name="Upgrade" type="Node3D"]
 
-[node name="Cube" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 8
+collision_mask = 9
+mass = 0.01
+script = ExtResource("1_ygdj5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(0.295, 0, 0, 0, 0.295, 0, 0, 0, 0.295, 0.0329296, 0.0341832, 0.0205261)
+shape = SubResource("BoxShape3D_jxcke")
+
+[node name="Cube" type="MeshInstance3D" parent="RigidBody3D"]
+transform = Transform3D(0.295, 0, 0, 0, 0.295, 0, 0, 0, 0.295, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7gx4s")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_nwdnl")

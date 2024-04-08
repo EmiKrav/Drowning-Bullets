@@ -5,6 +5,7 @@
 
 [node name="Bullet" type="Sprite3D"]
 transform = Transform3D(0.18, 0, 0, 0, 0.168, 0, 0, 0, 1, 0, 0, 0)
+visible = false
 billboard = 2
 texture = ExtResource("1_p3swy")
 script = ExtResource("2_7sqv0")

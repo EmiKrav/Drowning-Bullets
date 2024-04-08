@@ -20,6 +20,8 @@ const  Speed = 5.0
 var fullhealth = Health
 var AmmoBox = preload("res://Scenes/AmmoBox.tscn")
 var Life = preload("res://Scenes/Gyvybes.tscn")
+var Upgrade = preload("res://Scenes/Upgrade.tscn")
+
 
 signal Dead
 
@@ -39,6 +41,7 @@ func _physics_process(delta):
 			NavAgent.set_target_position(Player.global_transform.origin)
 			var NextNavPoint = NavAgent.get_next_path_position()
 			velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
+			move_and_slide()
 					
 			look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
 					Player.global_position.z + velocity.z), Vector3.UP)
@@ -53,7 +56,7 @@ func _physics_process(delta):
 		
 	AnimTree.get("parameters/playback")
 			
-	move_and_slide()
+	
 		
 func TargetInRange():
 	return global_position.distance_to(Player.global_position) < AttackRange
@@ -71,6 +74,11 @@ func DeadAnim():
 	var Lifeinstance = Life.instantiate()
 	Lifeinstance.position = global_position + Vector3(0.5,0.5,0)
 	get_parent().get_parent().add_child(Lifeinstance)
+	
+	var Upgradeinstance = Upgrade.instantiate()
+	Upgradeinstance.position = global_position + Vector3(0,0.5,0.5)
+	get_parent().get_parent().add_child(Upgradeinstance)
+	
 	
 	queue_free()
 	

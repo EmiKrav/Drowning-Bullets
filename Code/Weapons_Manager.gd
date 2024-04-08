@@ -3,13 +3,15 @@ extends Node3D
 signal WeaponChanged
 signal UpdateAmmo
 signal Mousesensiv
+signal UpdateWeaponStack
 
 @onready var AnimPlayer = get_node("%AnimationPlayer")
 @onready var BulletPoint = get_node("%Bullet_point")
+@onready var BulletRay = preload("res://Scenes/bullet_ray.tscn")
 
 @onready var MainCamera = get_node("%MainCamera")
 
-var Bullet = preload("res://Scenes/bullet.tscn")
+@onready var Bullet = preload("res://Scenes/bullet.tscn")
 
 var current_weapon = null
 
@@ -60,7 +62,7 @@ func Initialize(_start_weapons: Array):
 		Weapon_Stack.push_back(i)
 
 	current_weapon = Weapon_List[Weapon_Stack[0]]
-	#emit_signal("UpdateWeaponStack", Weapon_Stack)
+	emit_signal("UpdateWeaponStack")
 	enter()
 	
 		
@@ -160,11 +162,17 @@ func HitScanCollision(CollisionPoint):
 															
 	var BulletCollision = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
 	
+	
 	if BulletCollision:
 		var HitIndicator = Bullet.instantiate()
 		var world = get_tree().get_root().get_child(0)
 		world.add_child(HitIndicator)
 		HitIndicator.global_translate(BulletCollision.position)
+		
+		var bulray = BulletRay.instantiate()
+		bulray.draw(BulletPoint.global_position, CollisionPoint)
+		world.add_child(bulray)
+		
 		
 		HitScanDamage(BulletCollision.collider, BulletDirection, BulletCollision.position)
 		
@@ -172,3 +180,8 @@ func  HitScanDamage(Collider, Direction, Position):
 	if Collider.is_in_group("Target") and Collider.has_method("HitS"):
 		Collider.HitS(current_weapon.Damage, Direction, Position)
 	
+
+
+func _on_update_weapon_stack():
+	current_weapon.Current_Ammo = current_weapon.Magazine
+	current_weapon.Reserve_Ammo = current_weapon.Max_Ammo

@@ -660,10 +660,19 @@ offset_left = -40.0
 offset_bottom = 50.0
 grow_horizontal = 0
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Wave" type="Label" parent="CanvasLayer/VBoxContainer3/HBoxContainer4"]
+modulate = Color(0.568627, 0, 0.101961, 1)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 20
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer3"]
 layout_mode = 2
 
-[node name="Wave" type="Label" parent="CanvasLayer/VBoxContainer3/HBoxContainer3"]
+[node name="Upgrades" type="Label" parent="CanvasLayer/VBoxContainer3/HBoxContainer3"]
 modulate = Color(0.568627, 0, 0.101961, 1)
 layout_mode = 2
 size_flags_vertical = 8
@@ -719,11 +728,13 @@ shape = SubResource("SphereShape3D_ingdx")
 
 [connection signal="AmmoRasta" from="." to="CanvasLayer" method="_on_player_ammo_rasta"]
 [connection signal="Banga" from="." to="CanvasLayer" method="_on_player_banga"]
+[connection signal="DaiktasRastas" from="." to="CanvasLayer" method="_on_player_daiktas_rastas"]
 [connection signal="LifeReplene" from="." to="CanvasLayer" method="_on_player_life_replene"]
 [connection signal="PlayerHit" from="." to="CanvasLayer" method="_on_player_player_hit"]
 [connection signal="AmmoRasta" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_ammo_rasta"]
 [connection signal="Mousesensiv" from="MainCamera/Weapons_Manager" to="." method="_on_weapons_manager_mousesensiv"]
 [connection signal="UpdateAmmo" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
+[connection signal="UpdateWeaponStack" from="MainCamera/Weapons_Manager" to="MainCamera/Weapons_Manager" method="_on_update_weapon_stack"]
 [connection signal="WeaponChanged" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
 [connection signal="animation_finished" from="MainCamera/Weapons_Manager/FPS_Rig/AnimationPlayer" to="MainCamera/Weapons_Manager" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

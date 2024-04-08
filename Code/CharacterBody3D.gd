@@ -2,7 +2,11 @@ extends CharacterBody3D
 
 @onready var MainCamera = get_node("%MainCamera")
 var pauze = preload("res://Scenes/Pause.tscn")
+
 var mirtis = preload("res://Scenes/Mirtis.tscn")
+
+
+
 
 const SPEED = 3.0
 const JUMP_VELOCITY = 4.5
@@ -22,6 +26,7 @@ signal PlayerHit
 signal Banga
 signal LifeReplene
 signal AmmoRasta
+signal DaiktasRastas
 
 func _ready():
 	paused = false
@@ -132,5 +137,9 @@ func _on_monstrai_banga():
 
 func lifeUpdate():
 	emit_signal("LifeReplene", Health)
+	
 func AmmoUpdate():
 	emit_signal("AmmoRasta")
+	
+func UpgradeUpdate():
+	emit_signal("DaiktasRastas")

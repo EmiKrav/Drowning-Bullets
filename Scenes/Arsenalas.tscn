@@ -1,0 +1,130 @@
+[gd_scene load_steps=6 format=3 uid="uid://c72dbf65ng713"]
+
+[ext_resource type="Script" path="res://Code/ItemList.gd" id="1_h2qjl"]
+[ext_resource type="Resource" uid="uid://c4ybepliryrjc" path="res://Resource/WeaponResource/Pistol.tres" id="2_5wexv"]
+[ext_resource type="Resource" uid="uid://d1qk55e54tvvb" path="res://Resource/WeaponResource/Rifle.tres" id="3_ddo7f"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fi043"]
+bg_color = Color(0.388235, 0.647059, 0.690196, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7w50"]
+bg_color = Color(0.0745098, 0.701961, 0.545098, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_fi043")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Panel"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -221.5
+offset_right = 445.0
+offset_bottom = 221.5
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/CanvasLayer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_r7w50")
+
+[node name="ItemList" type="ItemList" parent="Panel/CanvasLayer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_text_lines = 4
+auto_height = true
+same_column_width = true
+script = ExtResource("1_h2qjl")
+weapons = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("2_5wexv"), ExtResource("3_ddo7f")])
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -445.0
+offset_top = -221.5
+offset_right = -9.99976
+offset_bottom = 221.5
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Panel/CanvasLayer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_r7w50")
+
+[node name="GunList" type="ItemList" parent="Panel/CanvasLayer/VBoxContainer2/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_text_lines = 4
+same_column_width = true
+icon_mode = 0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -68.0
+offset_right = 61.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="Atgal" type="Button" parent="Panel/CanvasLayer/VBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 36
+text = "ATGAL"
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -29.0
+offset_right = 61.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="Panel/CanvasLayer/VBoxContainer4"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 36
+text = "=>"
+
+[connection signal="item_selected" from="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_item_selected"]
+[connection signal="item_selected" from="Panel/CanvasLayer/VBoxContainer2/ScrollContainer/GunList" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_gun_list_item_selected"]
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer3/Atgal" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_atgal_pressed"]
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer4/Button" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_button_pressed"]
