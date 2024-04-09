@@ -8,6 +8,10 @@ extends CanvasLayer
 @onready var ReserveLife = $VBoxContainer2/HBoxContainer4/ReserveLife
 @onready var ReserveAmmo = $VBoxContainer/HBoxContainer3/PickedUp
 @onready var Upgrades = $VBoxContainer3/HBoxContainer3/Upgrades
+@onready var crosshair = $TextureRect
+
+@export var zoomo : CompressedTexture2D
+@export var bezoomo : CompressedTexture2D
 
 func _ready():
 		Life.set_text("100")
@@ -57,3 +61,11 @@ func _on_weapons_manager_ammo_rasta():
 func _on_player_daiktas_rastas():
 	Upgrades.set_text("Rasti" + '\n' + "Daiktai: " +str(Global.Rasti))
 
+
+
+func _on_player_zoom(zom):
+	if (zom):
+		crosshair.texture = zoomo
+	else :
+		crosshair.texture = bezoomo
+		

@@ -97,7 +97,7 @@ func HitS(Damage, _Direction:= Vector3.ZERO, _Position:= Vector3.ZERO):
 		emit_signal("Dead")
 		alive = false
 	
-	velocity = _Direction * 10
+	velocity = _Direction * 30
 	move_and_slide()
 		
 func Hurt():

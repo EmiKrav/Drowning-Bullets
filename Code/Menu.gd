@@ -1,7 +1,7 @@
 extends Node3D
 
 @onready var ezeras = preload("res://Scenes/ezeras.tscn")
-
+@onready var arsenalas = preload("res://Scenes/Arsenalas.tscn")
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
@@ -15,4 +15,4 @@ func _on_quit_pressed():
 
 
 func _on_arsenal_pressed():
-	get_tree().change_scene_to_file("res://Scenes/Arsenalas.tscn")
+	get_tree().change_scene_to_packed(arsenalas)

@@ -7,6 +7,8 @@ class_name Weapons_Resource
 @export var Shoot_Anim: String
 @export var Reload_Anim: String
 @export var Deactivate_Anim: String
+@export var Zoom_Anim: String
+@export var Zoom_AnimSauti: String
 
 @export var Current_Ammo: int
 @export var Reserve_Ammo: int

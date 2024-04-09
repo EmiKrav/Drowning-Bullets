@@ -27,6 +27,7 @@ signal Banga
 signal LifeReplene
 signal AmmoRasta
 signal DaiktasRastas
+signal zoom
 
 func _ready():
 	paused = false
@@ -128,8 +129,10 @@ func take_damage():
 func _on_weapons_manager_mousesensiv(prizzomintas):
 	if prizzomintas:
 		MouseSensitivity -= 0.002
+		emit_signal("zoom", true)
 	else:
 		MouseSensitivity += 0.002
+		emit_signal("zoom", false)
 
 
 func _on_monstrai_banga():

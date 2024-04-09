@@ -89,7 +89,7 @@ func _on_button_pressed():
 		monstrai_instance.position = spawnpoint
 		add_child(monstrai_instance)
 		monstrai_instance.Player = node
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(1).timeout
 		
 
 

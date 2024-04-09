@@ -34,6 +34,8 @@ enum {NULL,HITSCAN}
 
 signal AmmoRasta
 
+var zomintas = false
+
 func _ready():
 	Initialize(Start_Weapons)
 	
@@ -96,7 +98,10 @@ func _on_animation_player_animation_finished(anim_name):
 func shoot():
 	if current_weapon.Current_Ammo != 0:
 		if !AnimPlayer.is_playing():
-			AnimPlayer.play(current_weapon.Shoot_Anim)
+			if zomintas == false:
+				AnimPlayer.play(current_weapon.Shoot_Anim)
+			else:
+				AnimPlayer.play(current_weapon.Zoom_AnimSauti)
 			current_weapon.Current_Ammo -= 1;
 			emit_signal("UpdateAmmo", [current_weapon.Current_Ammo, current_weapon.Reserve_Ammo])
 			var CameraCollision = GetCameraCollision()
@@ -113,11 +118,14 @@ func zoom(zoomas):
 		MainCamera.fov += zoomas
 		prizoominta = true
 		emit_signal("Mousesensiv", prizoominta)
+		AnimPlayer.play(current_weapon.Zoom_Anim)
+		zomintas = true
 	else:
 		MainCamera.fov -= zoomas
 		prizoominta = false		
 		emit_signal("Mousesensiv", prizoominta)
-	
+		AnimPlayer.play(current_weapon.Activate_Anim)
+		zomintas = false
 	
 	
 func reload():

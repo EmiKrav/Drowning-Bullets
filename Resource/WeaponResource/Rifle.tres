@@ -9,6 +9,7 @@ Activate_Anim = "ginklas2"
 Shoot_Anim = "ginklas2sauti"
 Reload_Anim = "ginklas2reload"
 Deactivate_Anim = "ginklas2baigta"
+Zoom_Anim = "ginklas2zoomed"
 Current_Ammo = 20
 Reserve_Ammo = 80
 Magazine = 20
