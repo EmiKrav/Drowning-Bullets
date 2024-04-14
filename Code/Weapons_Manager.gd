@@ -37,6 +37,17 @@ signal AmmoRasta
 var zomintas = false
 
 func _ready():
+	for weapon in _weapon_resources:
+		Weapon_List[weapon.Weapon_Name] = weapon
+		
+	for i in Start_Weapons:
+		Weapon_Stack.push_back(i)
+		
+	for i in Weapon_Stack:
+		current_weapon = Weapon_List[i]
+		current_weapon.Current_Ammo = current_weapon.Magazine
+		current_weapon.Reserve_Ammo = current_weapon.Max_Ammo - current_weapon.Magazine
+	
 	Initialize(Start_Weapons)
 	
 func _input(event):

@@ -39,6 +39,7 @@ func _physics_process(_delta):
 	count = 0
 	for target in get_tree().get_nodes_in_group("Target"):
 		count+=1;
+		break;
 	if count == 0 &&  !spausta:
 		spausta = true
 		Menu()

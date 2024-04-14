@@ -19,10 +19,6 @@ config/icon="res://icon.svg"
 
 Global="*res://Code/Global.gd"
 
-[display]
-
-window/size/mode=3
-
 [dotnet]
 
 project/assembly_name="Drowning Bullets"
