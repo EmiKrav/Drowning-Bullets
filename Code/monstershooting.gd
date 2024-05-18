@@ -55,7 +55,7 @@ func _physics_process(delta):
 							
 	AnimTree.set("parameters/conditions/Shoot", TargetInRange())
 	AnimTree.set("parameters/conditions/Fly", !TargetInRange())
-	AnimTree.set("parameters/conditions/Dead", !Alive())
+	AnimTree.set("parameters/conditions/Death", !Alive())
 		
 	AnimTree.get("parameters/playback")
 			
@@ -69,7 +69,7 @@ func HitFinished():
 		var dir = global_position.direction_to(Player.global_position)
 		var ataka = Bullet.instantiate()
 		var world = get_tree().get_root().get_child(0)
-		ataka.position = $".".global_position
+		ataka.position = $RayCast3D.global_position
 		#ataka.seth(global_position.distance_to(Player.global_position))
 		ataka.setvelocity($".".global_position, Player.global_position)
 		world.add_child(ataka)
@@ -125,3 +125,4 @@ func _on_navigation_agent_3d_velocity_computed(safe_velocity):
 	
 	
 
+	
