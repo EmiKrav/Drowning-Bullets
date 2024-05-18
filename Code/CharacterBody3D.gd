@@ -8,7 +8,7 @@ var mirtis = preload("res://Scenes/Mirtis.tscn")
 
 
 
-const SPEED = 3.0
+const SPEED = 6.0
 const JUMP_VELOCITY = 4.5
 const  HitStag = 5.0
 
@@ -146,3 +146,4 @@ func AmmoUpdate():
 	
 func UpgradeUpdate():
 	emit_signal("DaiktasRastas")
+

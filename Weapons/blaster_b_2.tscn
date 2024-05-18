@@ -7,7 +7,7 @@ metallic = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwrsh"]
 resource_name = "pink"
-albedo_color = Color(0.998274, 0.505969, 0.673936, 1)
+albedo_color = Color(0.572549, 0.698039, 0.882353, 1)
 metallic = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_krfxq"]

@@ -10,6 +10,7 @@ var count = 0
 var prisukiekis = 3
 
 var monstrai = preload("res://Scenes/monster.tscn")
+var monstraisuginklu = preload("res://Scenes/monstershooting.tscn")
 
 var spausta = false;
 
@@ -24,6 +25,14 @@ func _ready():
 	for i in prisukiekis:
 		var spawnpoint = GetRandomPlace().global_position
 		var monstrai_instance = monstrai.instantiate()
+		monstrai_instance.position = spawnpoint
+		add_child(monstrai_instance)
+		monstrai_instance.Player = node
+		await get_tree().create_timer(0.1).timeout
+		#
+	for i in prisukiekis/3:
+		var spawnpoint = GetRandomPlace().global_position
+		var monstrai_instance = monstraisuginklu.instantiate()
 		monstrai_instance.position = spawnpoint
 		add_child(monstrai_instance)
 		monstrai_instance.Player = node
@@ -87,6 +96,14 @@ func _on_button_pressed():
 	for i in prisukiekis:
 		var spawnpoint = GetRandomPlace().global_position
 		var monstrai_instance = monstrai.instantiate()
+		monstrai_instance.position = spawnpoint
+		add_child(monstrai_instance)
+		monstrai_instance.Player = node
+		await get_tree().create_timer(1).timeout
+	
+	for i in prisukiekis/3:
+		var spawnpoint = GetRandomPlace().global_position
+		var monstrai_instance = monstraisuginklu.instantiate()
 		monstrai_instance.position = spawnpoint
 		add_child(monstrai_instance)
 		monstrai_instance.Player = node

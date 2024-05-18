@@ -2,13 +2,23 @@ extends MeshInstance3D
 
 var alpha = 1.0
 
+@onready var emitter = get_tree().get_root().get_child(1)
+@onready var wm = emitter.get_node("Map/Player/MainCamera/Weapons_Manager")
+
 func  _ready():
 	var dup_mat = material_override.duplicate()
 	material_override = dup_mat
+	wm.kraujuoti.connect(paleisti)
+	
+func paleisti():
+	$GPUParticles3D.emitting = true
+	
 
 func _process(delta):
 	alpha -= delta * 3.5
 	material_override.albedo_color.a = alpha
+	
+
 
 func draw(pos1, pos2):
 	var drawmesh = ImmediateMesh.new()

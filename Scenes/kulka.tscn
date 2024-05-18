@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://vqacsrmgxlh5"]
+
+[ext_resource type="Script" path="res://Code/kulka.gd" id="1_03pgk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8it3y"]
+radius = 0.01
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5gjd"]
+albedo_color = Color(0.768627, 0.713726, 0.164706, 1)
+emission_enabled = true
+emission = Color(0.882353, 0.854902, 0.282353, 1)
+emission_energy_multiplier = 5.0
+
+[node name="Kulka" type="Node3D"]
+script = ExtResource("1_03pgk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_8it3y")
+surface_material_override/0 = SubResource("StandardMaterial3D_j5gjd")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

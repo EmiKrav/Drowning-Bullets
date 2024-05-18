@@ -3,15 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://d2ytr3s5bm66d" path="res://Models/pngimg.com - bullet_hole_PNG6062.png" id="1_p3swy"]
 [ext_resource type="Script" path="res://Code/bullet.gd" id="2_7sqv0"]
 
-[node name="Bullet" type="Sprite3D"]
-transform = Transform3D(0.18, 0, 0, 0, 0.168, 0, 0, 0, 1, 0, 0, 0)
-visible = false
-billboard = 2
-texture = ExtResource("1_p3swy")
+[node name="Decal" type="Decal"]
+size = Vector3(0.25, 0.25, 0.25)
+texture_albedo = ExtResource("1_p3swy")
 script = ExtResource("2_7sqv0")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 5.0
 one_shot = true
 autostart = true
 

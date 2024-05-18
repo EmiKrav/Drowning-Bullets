@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=31 format=3 uid="uid://bpwd8xwceq4yw"]
 
 [ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
 [ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
@@ -138,6 +138,18 @@ tracks/9/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.30442, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("%Bullet_point:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.154465, -0.22413, -1.15853)]
 }
 
 [sub_resource type="Animation" id="Animation_wrgva"]
@@ -372,10 +384,10 @@ tracks/2/path = NodePath("MeshInstance3D:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.13853, -0.421484, -0.879495), Vector3(0.161408, -0.397254, -0.866446), Vector3(0.15899, -0.419839, -0.865138)]
+"values": [Vector3(0.139, -0.201, -1.244), Vector3(0.139, -0.241, -1.234)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -401,57 +413,70 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(-0.331613, -3.14159, 0), Vector3(-0.331613, -3.14159, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MeshInstance3D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.389208, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_lv1w2"]
 resource_name = "ginklas1zoomed"
+length = 0.2
 step = 0.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Bullet_point:position")
+tracks/0/path = NodePath("blasterB2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0.15046, -0.427346, -0.877712)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("blasterB2:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -1.42721, 0), Vector3(0, -0.29, -1.102)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("blasterB2:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blasterB2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("blasterB2:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blasterB2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -3.14159, 0), Vector3(-0.331613, -3.14159, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%Bullet_point:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.154465, -0.22413, -1.15853)]
 }
 
 [sub_resource type="Animation" id="Animation_dbg4h"]
@@ -496,14 +521,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/path = NodePath("%Bullet_point:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.286257, -0.513731, -1.00666)]
+"values": [Vector3(0.286257, -0.513731, -1.49089)]
 }
 
 [sub_resource type="Animation" id="Animation_hvtsm"]
@@ -663,8 +688,85 @@ tracks/5/keys = {
 "values": [Vector3(0.30442, 0, 0), Vector3(0.752586, 0, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_nhchw"]
+resource_name = "ginklas2sautizoomed"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("blasterH2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 3.14159, 0), Vector3(-0.579694, 3.14159, 9.88616e-08), Vector3(0, 3.14159, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.245, 0.245, 0.245), Vector3(0.125, 0.125, 0.125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MeshInstance3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.30442, 0, 0), Vector3(0.752586, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("blasterH2:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.29, -1.102), Vector3(0, -0.29, -1.102)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MeshInstance3D:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.13, -0.217, -1.235)]
+}
+
 [sub_resource type="Animation" id="Animation_qi3if"]
 resource_name = "ginklas2zoomed"
+length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -704,14 +806,14 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Bullet_point:position")
+tracks/3/path = NodePath("%Bullet_point:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.286257, -0.513731, -1.00666)]
+"values": [Vector3(0.15011, -0.285229, -1.89276)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aweui"]
@@ -727,6 +829,7 @@ _data = {
 "ginklas2baigta": SubResource("Animation_hvtsm"),
 "ginklas2reload": SubResource("Animation_cdptp"),
 "ginklas2sauti": SubResource("Animation_l8tx6"),
+"ginklas2sautizoomed": SubResource("Animation_nhchw"),
 "ginklas2zoomed": SubResource("Animation_qi3if")
 }
 
@@ -745,7 +848,7 @@ albedo_texture = ExtResource("9_ijxvl")
 [sub_resource type="SphereShape3D" id="SphereShape3D_ingdx"]
 radius = 15.837
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_y8uxt")
@@ -860,6 +963,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2256, 0.311643)
 
 [node name="Weapons_Manager" type="Node3D" parent="MainCamera"]
+unique_name_in_owner = true
 script = ExtResource("2_rf484")
 _weapon_resources = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("4_1cvv8"), ExtResource("5_daick")])
 Start_Weapons = Array[String](["Pistol", "Rifle"])
@@ -882,10 +986,10 @@ libraries = {
 
 [node name="Bullet_point" type="Marker3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15046, -0.427346, -0.877712)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.154465, -0.22413, -1.15853)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MainCamera/Weapons_Manager/FPS_Rig"]
-transform = Transform3D(0.230073, 0, 0, 0, 0.219494, -0.0689619, 0, 0.0689619, 0.219494, 0, -1.25746, 0)
+transform = Transform3D(0.125, 0, 0, 0, 0.119253, -0.0374676, 0, 0.0374676, 0.119253, 0, -1.25746, 0)
 visible = false
 mesh = SubResource("PlaneMesh_u46j3")
 surface_material_override/0 = SubResource("StandardMaterial3D_gb30v")
