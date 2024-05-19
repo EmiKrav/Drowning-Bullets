@@ -37,11 +37,11 @@ func _ready():
 		add_child(monstrai_instance)
 		monstrai_instance.Player = node
 		await get_tree().create_timer(0.1).timeout
-	
+	#
 	#for child in monstrai_instance.get_children():#Iterate trough the children  
 		#print(child.get_name())
 		#add_child(child)
-	
+	#
 	
 func _physics_process(_delta):
 	
@@ -52,6 +52,7 @@ func _physics_process(_delta):
 	if count == 0 &&  !spausta:
 		spausta = true
 		Menu()
+	pass
 
 
 func GetRandomPlace():
@@ -74,6 +75,8 @@ func Menu():
 		
 
 func _on_button_pressed():
+	
+	randomize()
 	
 	Global.KitaBanga()
 	emit_signal("banga")

@@ -229,7 +229,7 @@ size = Vector3(0.289047, 0.381489, 0.304321)
 
 [node name="Box" type="RigidBody3D" parent="."]
 collision_layer = 8
-collision_mask = 9
+collision_mask = 41
 mass = 0.01
 script = ExtResource("1_8iwdi")
 

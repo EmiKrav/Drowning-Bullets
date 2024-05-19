@@ -47,8 +47,8 @@ transform = Transform3D(7.28689, 0, 0, 0, 7.28689, 0, 0, 0, 7.28689, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ktvpl")
 skeleton = NodePath("")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Plane"]
+[node name="Plane" type="StaticBody3D" parent="Plane"]
 collision_mask = 0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Plane"]
 shape = SubResource("ConcavePolygonShape3D_7tpq2")

@@ -7,6 +7,7 @@ signal UpdateWeaponStack
 signal naikintkulka
 signal kraujuoti
 
+
 @onready var AnimPlayer = get_node("%AnimationPlayer")
 @onready var BulletPoint = get_node("%Bullet_point")
 @onready var BulletRay = preload("res://Scenes/bullet_ray.tscn")
@@ -191,9 +192,12 @@ func GetCameraCollision()->Vector3:
 	var RayOrigin = camera.project_ray_origin(viewport/2)
 	var RayEnd = RayOrigin + camera.project_ray_normal(viewport/2)*current_weapon.WeaponRange
 	
-	var NewIntersection = PhysicsRayQueryParameters3D.create(RayOrigin, RayEnd)
+	var NewIntersection = PhysicsRayQueryParameters3D.create(RayOrigin, RayEnd, 5,[])
+	
+	
 	
 	var Intersection = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
+	
 	
 	if not Intersection.is_empty():
 		var ColPoint = Intersection.position
@@ -201,13 +205,14 @@ func GetCameraCollision()->Vector3:
 	else:
 		return RayEnd
 	
+
 func HitScanCollision(CollisionPoint):
 	var BulletDirection = (CollisionPoint - BulletPoint.get_global_transform().origin).normalized()
 	var NewIntersection = PhysicsRayQueryParameters3D.create(BulletPoint.get_global_transform().origin,
-															 CollisionPoint + BulletDirection*2)
+															 CollisionPoint + BulletDirection*2,5,[])
 															
 	var BulletCollision = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
-	
+
 	
 	if BulletCollision:
 		var HitIndicator = Bullet.instantiate()
@@ -219,11 +224,15 @@ func HitScanCollision(CollisionPoint):
 		bulray.global_position = BulletCollision.position
 		bulray.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
 		HitIndicator.global_position = BulletCollision.position
-		HitIndicator.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
+		if BulletCollision.normal == Vector3.DOWN:
+			HitIndicator.rotation_degrees.x = 90
+		elif BulletCollision.normal != Vector3.UP:
+			HitIndicator.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
 		if (BulletCollision.normal != Vector3.UP and BulletCollision.normal != Vector3.DOWN):
 			HitIndicator.rotate_object_local(Vector3(1,0,0),90)
 			bulray.rotate_object_local(Vector3(1,0,0),90)
 		emit_signal("naikintkulka")
+		
 		
 		HitScanDamage(BulletCollision.collider, BulletDirection, BulletCollision.position)
 		

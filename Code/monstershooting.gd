@@ -80,15 +80,15 @@ func HitFinished():
 
 func DeadAnim():
 	var Ammoinstance = AmmoBox.instantiate()
-	Ammoinstance.position = global_position + Vector3(0,0.5,0)
+	Ammoinstance.position = global_position + Vector3(0,2,0)
 	get_parent().get_parent().add_child(Ammoinstance)
 	
 	var Lifeinstance = Life.instantiate()
-	Lifeinstance.position = global_position + Vector3(0.5,0.5,0)
+	Lifeinstance.position = global_position + Vector3(0.5,2,0)
 	get_parent().get_parent().add_child(Lifeinstance)
 	
 	var Upgradeinstance = Upgrade.instantiate()
-	Upgradeinstance.position = global_position + Vector3(0,0.5,0.5)
+	Upgradeinstance.position = global_position + Vector3(0,2,0.5)
 	get_parent().get_parent().add_child(Upgradeinstance)
 	
 	
