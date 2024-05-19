@@ -5,10 +5,7 @@ var pauze = preload("res://Scenes/Pause.tscn")
 
 var mirtis = preload("res://Scenes/Mirtis.tscn")
 
-
-
-
-const SPEED = 6
+var SPEED = 6
 const JUMP_VELOCITY = 4.5
 const  HitStag = 5.0
 
@@ -21,6 +18,9 @@ var Health = 100
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var paused
+
+var underwater = false
+var showtime = true
 
 signal PlayerHit
 signal Banga
@@ -63,15 +63,33 @@ func CameraLook(Movement: Vector2):
 	
 	
 	
-var chase = true;
+#var chase = true;
 func _physics_process(delta):
 	# Add the gravity.
-	if not is_on_floor():
+	if (underwater && showtime):
+		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = "%d:%02d" % [floor($Timer.time_left / 60), int($Timer.time_left) % 60]
+	
+	if (underwater && $RayCast3D.is_colliding()):
+		$Timer.stop()
+		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
+		underwater = false
+		$".".set_collision_mask_value(5,true)
+		gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+		SPEED = 6 
+		
+	
+		
+	
+	if not is_on_floor() and !underwater:
 		velocity.y -= gravity * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	elif Input.is_action_just_pressed("ui_accept") and underwater:
+		velocity.y = 2
+	
+		
 		
 	if Input.is_action_just_pressed("Drink"):
 		var trukstaHp = MaxHealth - Health
@@ -83,10 +101,23 @@ func _physics_process(delta):
 				Health += Global.life
 				Global.LifeSunaudota(Global.life)
 			emit_signal("LifeReplene", Health)
-		
-
+	
+	if Input.is_action_just_pressed("Surge"):
+		if (underwater == false):
+			$".".set_collision_mask_value(5,false)
+			gravity = 0
+			SPEED /=2 
+			velocity.y -= 2
+			await get_tree().create_timer(1.0).timeout
+			underwater = true
+			$Timer.wait_time = 20
+			$Timer.start()
+			showtime = true
+		else:
+			velocity.y = -2
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
+	
 	var input_dir = Input.get_vector("A", "D", "W", "S")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
@@ -98,13 +129,15 @@ func _physics_process(delta):
 
 	move_and_slide()
 	
-	for i in get_slide_collision_count():
-		var collision = get_slide_collision(i)
-		if collision.get_collider().has_method("Hurt"):
-			if chase == true:
-				chase = false
-				take_damage()
-				return			
+	
+	
+	#for i in get_slide_collision_count():
+		#var collision = get_slide_collision(i)
+		#if collision.get_collider().has_method("Hurt"):
+			#if chase == true:
+				#chase = false
+				#take_damage()
+				#return			
 				
 func Hit(dir):
 	Health -= 1
@@ -116,13 +149,23 @@ func Hit(dir):
 		get_parent().add_child(w)
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 			
-
-func take_damage():
-	Health -=1;
-	#print("Health", str(Health)) 
-	await get_tree().create_timer(1.0).timeout
-	chase = true;
-	return;
+func Drown():
+	if (underwater):
+		showtime = false
+		Health -= 1
+		emit_signal("PlayerHit", Health)
+	if (Health <= 0 ):
+		get_tree().paused = true;
+		var w = mirtis.instantiate()
+		get_parent().add_child(w)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		
+#func take_damage():
+	#Health -=1;
+	##print("Health", str(Health)) 
+	#await get_tree().create_timer(1.0).timeout
+	#chase = true;
+	#return;
 	
 
 
@@ -147,3 +190,10 @@ func AmmoUpdate():
 func UpgradeUpdate():
 	emit_signal("DaiktasRastas")
 
+
+
+func _on_timer_timeout():
+	if (underwater && $Timer.time_left == 0):
+		Drown()
+		$Timer.wait_time = 1
+		$Timer.start()

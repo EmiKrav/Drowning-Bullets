@@ -198,6 +198,7 @@ func GetCameraCollision()->Vector3:
 	
 	var Intersection = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
 	
+	#print(Intersection.collider,Intersection.rid)
 	
 	if not Intersection.is_empty():
 		var ColPoint = Intersection.position
@@ -212,7 +213,7 @@ func HitScanCollision(CollisionPoint):
 															 CollisionPoint + BulletDirection*2,5,[])
 															
 	var BulletCollision = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
-
+	#print(BulletCollision.collider,BulletCollision.rid)
 	
 	if BulletCollision:
 		var HitIndicator = Bullet.instantiate()
