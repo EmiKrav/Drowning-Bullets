@@ -5,6 +5,9 @@ var pauze = preload("res://Scenes/Pause.tscn")
 
 var mirtis = preload("res://Scenes/Mirtis.tscn")
 
+var mat = preload("res://textures/terrain.tres")
+var caust = preload("res://Resource/underwater.material")
+
 var SPEED = 6
 const JUMP_VELOCITY = 4.5
 const  HitStag = 5.0
@@ -70,14 +73,17 @@ func _physics_process(delta):
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = "%d:%02d" % [floor($Timer.time_left / 60), int($Timer.time_left) % 60]
 	
 	if (underwater && $RayCast3D.is_colliding()):
+		mat.next_pass = null
+		mat.emission_enabled = true
+		mat.albedo_color = "#6b3903"
+		mat.next_pass = null
+		$"../NavigationRegion3D/Water".mesh.flip_faces = false
 		$Timer.stop()
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
 		underwater = false
 		$".".set_collision_mask_value(5,true)
 		gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		SPEED = 6 
-		
-	
 		
 	
 	if not is_on_floor() and !underwater:
@@ -103,12 +109,18 @@ func _physics_process(delta):
 			emit_signal("LifeReplene", Health)
 	
 	if Input.is_action_just_pressed("Surge"):
-		if (underwater == false):
+		if (underwater == false  && $RayCast3D.is_colliding()):
+			mat.next_pass = caust
 			$".".set_collision_mask_value(5,false)
+			$"../NavigationRegion3D/Water".mesh.flip_faces = true
 			gravity = 0
 			SPEED /=2 
 			velocity.y -= 2
-			await get_tree().create_timer(1.0).timeout
+			await get_tree().create_timer(0.3).timeout
+			mat.emission_enabled = false
+			mat.albedo_color = "#4b2601"
+			mat.next_pass = caust
+			await get_tree().create_timer(0.2).timeout
 			underwater = true
 			$Timer.wait_time = 20
 			$Timer.start()

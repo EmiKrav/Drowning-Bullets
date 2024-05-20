@@ -13,7 +13,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 #@export var PlayerPath : NodePath
 var alive = true
 @onready var Player
-const  Speed = 5.0
+const  Speed = 2.0
 @onready var NavAgent = $NavigationAgent3D
 @onready var AnimTree = $AnimationTree
 @onready var bar = $Gyvyb
