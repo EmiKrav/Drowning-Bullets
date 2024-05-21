@@ -4,7 +4,7 @@ extends Node3D
 
 @onready var node = get_node("%Player")
 
-@onready var Nav = $"../NavigationRegion3D"
+#@onready var Nav = $"../NavigationRegion3D"
 
 var count = 0
 var prisukiekis = 3

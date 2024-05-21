@@ -31,6 +31,8 @@ var Weapon_List = {}
 var FOV = -40
 var prizoominta = false
 var check = false
+var mining = false;
+var getkristals = false;
 
 @export var _weapon_resources: Array[Weapons_Resource]
 
@@ -57,21 +59,45 @@ func _ready():
 	Initialize(Start_Weapons)
 	
 func _input(event):
-	if event.is_action_pressed("weapon_Up"):
-		Weapon_Indicator = 0#min(Weapon_Indicator+1, Weapon_Stack.size()-1)
+	if !mining && event.is_action_pressed("weapon_Up"):
+		if Weapon_Indicator == 0:
+			Weapon_Indicator = 1
+		else:
+			Weapon_Indicator = 0#min(Weapon_Indicator+1, Weapon_Stack.size()-1)
 		exit(Weapon_Stack[Weapon_Indicator])
 
-	if event.is_action_pressed("weapon_Down"):
-		Weapon_Indicator = 1#max(Weapon_Indicator-1,0)
+	if !mining && event.is_action_pressed("weapon_Down"):
+		if Weapon_Indicator == 1:
+			Weapon_Indicator = 0
+		else:
+			Weapon_Indicator = 1#max(Weapon_Indicator-1,0)
 		exit(Weapon_Stack[Weapon_Indicator])
+	if mining && event.is_action_pressed("weapon_Up"):
+		if prizoominta == true:
+				check = true
+				zoom(FOV)
+		AnimPlayer.play("pickaxeback")
+		
+
+	if mining && event.is_action_pressed("weapon_Down"):
+		if prizoominta == true:
+				check = true
+				zoom(FOV)
+		AnimPlayer.play("pickaxeback")
 		
 	if event.is_action_pressed("Shoot"):
-		shoot()
+		if !mining:
+			shoot()
+		else:
+			minestart()
 		
 	if event.is_action_pressed("Reload"):
 		reload()
 	if event.is_action_pressed("zoom"):
 		zoom(FOV)
+		
+	if event.is_action_pressed("mine"):
+		mine()
 		
 func Initialize(_start_weapons: Array):
 	for weapon in _weapon_resources:
@@ -91,7 +117,7 @@ func enter():
 	emit_signal("UpdateAmmo", [current_weapon.Current_Ammo, current_weapon.Reserve_Ammo])
 	
 func exit(_next_weapon: String):
-	if _next_weapon != current_weapon.Weapon_Name:
+	if !mining && _next_weapon != current_weapon.Weapon_Name:
 		if AnimPlayer.get_current_animation() != current_weapon.Deactivate_Anim:
 			if prizoominta == true:
 				check = true
@@ -117,12 +143,23 @@ func _on_animation_player_animation_finished(anim_name):
 		if check == true:
 			zoom(FOV)
 			check = false
-	if anim_name == current_weapon.Deactivate_Anim:
+	if anim_name == current_weapon.Deactivate_Anim && !mining:
 		Change(Next_Weapon)
 		
 	if (anim_name == current_weapon.Shoot_Anim || anim_name == current_weapon.Zoom_AnimSauti) && current_weapon.Auto_Fire == true:
 		if Input.is_action_pressed("Shoot"):
 			shoot()
+	if (anim_name == "pickaxe"):
+		if check == true:
+			zoom(FOV)
+			check = false
+	if (anim_name == "pickaxeback"):
+		mining = false;
+		enter()
+	if (anim_name == "pickaxemine"):
+		getkristals = false;
+		if Input.is_action_pressed("Shoot"):
+			minestart()
 		
 
 func shoot():
@@ -153,13 +190,15 @@ func zoom(zoomas):
 			MainCamera.fov += zoomas
 			prizoominta = true
 			emit_signal("Mousesensiv", prizoominta)
-			AnimPlayer.play(current_weapon.Zoom_Anim)
+			if (!mining):
+				AnimPlayer.play(current_weapon.Zoom_Anim)
 			zomintas = true
 		else:
 			MainCamera.fov -= zoomas
 			prizoominta = false		
 			emit_signal("Mousesensiv", prizoominta)
-			AnimPlayer.play(current_weapon.Activate_Anim)
+			if (!mining):
+				AnimPlayer.play(current_weapon.Activate_Anim)
 			zomintas = false
 	
 	
@@ -248,4 +287,20 @@ func  HitScanDamage(Collider, Direction, Position):
 func _on_update_weapon_stack():
 	current_weapon.Current_Ammo = current_weapon.Magazine
 	current_weapon.Reserve_Ammo = current_weapon.Max_Ammo
-
+	
+func mine():
+	if !AnimPlayer.is_playing():
+		if !mining:
+			if prizoominta == true:
+				zoom(FOV)
+				check = true
+			AnimPlayer.play(current_weapon.Deactivate_Anim)
+			AnimPlayer.queue("pickaxe")
+			mining = true;
+			
+func minestart():
+	AnimPlayer.play("pickaxemine")
+	getkristals = true;
+	
+func CollectKristalus():
+	return getkristals

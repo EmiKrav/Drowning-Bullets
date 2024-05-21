@@ -39,11 +39,12 @@ func _physics_process(delta):
 	match StateMachine.get_current_node():
 		"Fast_Flying":
 			NavAgent.set_target_position(Player.global_transform.origin)
-			var NextNavPoint = NavAgent.get_next_path_position()
-			velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
-			move_and_slide()
+			if NavAgent.is_target_reachable():
+				var NextNavPoint = NavAgent.get_next_path_position()
+				velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
+				move_and_slide()
 					
-			look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
+				look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
 					Player.global_position.z + velocity.z), Vector3.UP)
 		"Punch":
 			look_at(Vector3(Player.global_position.x, Player.global_position.y,

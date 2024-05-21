@@ -73,12 +73,12 @@ func _physics_process(delta):
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = "%d:%02d" % [floor($Timer.time_left / 60), int($Timer.time_left) % 60]
 	
 	if (underwater && $RayCast3D.is_colliding()):
-		$"../../DirectionalLight3D".light_energy = 3.252
-		$"../../WorldEnvironment".get_environment().volumetric_fog_enabled = false
+		$"../DirectionalLight3D".light_energy = 3.252
+		$"../WorldEnvironment".get_environment().volumetric_fog_enabled = false
 		mat.emission_enabled = true
 		mat.albedo_color = "#6b3903"
 		mat.next_pass = null
-		$"../NavigationRegion3D/Water".mesh.flip_faces = false
+		$"../Map/NavigationRegion3D/Water".mesh.flip_faces = false
 		$Timer.stop()
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
 		underwater = false
@@ -113,13 +113,13 @@ func _physics_process(delta):
 		if (underwater == false  && $RayCast3D.is_colliding()):
 			mat.next_pass = caust
 			$".".set_collision_mask_value(5,false)
-			$"../NavigationRegion3D/Water".mesh.flip_faces = true
+			$"../Map/NavigationRegion3D/Water".mesh.flip_faces = true
 			gravity = 0
 			SPEED /=2 
 			velocity.y -= 2
 			await get_tree().create_timer(0.3).timeout
-			$"../../WorldEnvironment".get_environment().volumetric_fog_enabled = true
-			$"../../DirectionalLight3D".light_energy = 1
+			$"../WorldEnvironment".get_environment().volumetric_fog_enabled = true
+			$"../DirectionalLight3D".light_energy = 1
 			#$"../../WorldEnvironment".get_environment().background_energy_multiplier= 0.25
 			mat.emission_enabled = false
 			mat.albedo_color = "#4b2601"

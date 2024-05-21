@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=35 format=3 uid="uid://bpwd8xwceq4yw"]
 
 [ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
 [ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bk2v6irqk1g3p" path="res://Weapons/blaster_h_2.tscn" id="8_y2l12"]
 [ext_resource type="Texture2D" uid="uid://ccvs3ovh46py6" path="res://textures/blue-glowing-lights-effects-isolated-solar-flare-with-beams-and-spotlight-glow-effect-starburst-with-sparkles-png.png" id="9_ijxvl"]
 [ext_resource type="Script" path="res://Code/Area3D.gd" id="10_ytx0w"]
+[ext_resource type="PackedScene" uid="uid://b1y088dr0df4t" path="res://Scenes/pickaxe.tscn" id="11_fhvuc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xmjbp"]
 radius = 0.843494
@@ -150,6 +151,42 @@ tracks/10/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0.154465, -0.22413, -1.15853)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Pickaxe:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Pickaxe:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.0941734, -1.35805, -0.157933)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Pickaxe:rotation")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0267473, 1.66452, -0.277178)]
 }
 
 [sub_resource type="Animation" id="Animation_wrgva"]
@@ -816,6 +853,125 @@ tracks/3/keys = {
 "values": [Vector3(0.15011, -0.285229, -1.89276)]
 }
 
+[sub_resource type="Animation" id="Animation_wosp4"]
+resource_name = "pickaxe"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pickaxe:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pickaxe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.0941734, -1.35805, -0.157933), Vector3(0.29, -0.178, -0.754378)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickaxe:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.0267473, 1.66452, -0.277178)]
+}
+
+[sub_resource type="Animation" id="Animation_oxgsr"]
+resource_name = "pickaxeback"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pickaxe:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pickaxe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.29, -0.178, -0.754378), Vector3(-0.0941734, -1.35805, -0.157933)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickaxe:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.0267473, 1.66452, -0.277178), Vector3(0.0267473, 1.66452, -0.277178)]
+}
+
+[sub_resource type="Animation" id="Animation_5ybd2"]
+resource_name = "pickaxemine"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pickaxe:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pickaxe:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.29, -0.178, -0.754378), Vector3(0.29, 0.293528, -1.08822), Vector3(0.29, -0.237818, -1.42207), Vector3(0.29, -0.178, -0.754378)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pickaxe:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.0267473, 1.66452, -0.277178), Vector3(0.0570478, 1.63806, -0.70259), Vector3(0.0892606, 1.60996, -1.15661), Vector3(0.0267473, 1.66452, -0.277178)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aweui"]
 _data = {
 "RESET": SubResource("Animation_xf70o"),
@@ -830,7 +986,10 @@ _data = {
 "ginklas2reload": SubResource("Animation_cdptp"),
 "ginklas2sauti": SubResource("Animation_l8tx6"),
 "ginklas2sautizoomed": SubResource("Animation_nhchw"),
-"ginklas2zoomed": SubResource("Animation_qi3if")
+"ginklas2zoomed": SubResource("Animation_qi3if"),
+"pickaxe": SubResource("Animation_wosp4"),
+"pickaxeback": SubResource("Animation_oxgsr"),
+"pickaxemine": SubResource("Animation_5ybd2")
 }
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4m8u8"]
@@ -850,7 +1009,7 @@ radius = 15.837
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 4
-collision_mask = 19
+collision_mask = 83
 script = ExtResource("1_y8uxt")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -986,6 +1145,10 @@ visible = false
 
 [node name="blasterH2" parent="MainCamera/Weapons_Manager/FPS_Rig" instance=ExtResource("8_y2l12")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.42721, 0)
+visible = false
+
+[node name="Pickaxe" parent="MainCamera/Weapons_Manager/FPS_Rig" instance=ExtResource("11_fhvuc")]
+transform = Transform3D(-0.00486503, 5.90459e-08, 0.0497627, -0.0136772, 0.0480744, -0.0013372, -0.0478462, -0.0137424, -0.00467765, -0.0941734, -1.35805, -0.157933)
 visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MainCamera/Weapons_Manager/FPS_Rig"]

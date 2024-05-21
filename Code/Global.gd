@@ -5,6 +5,7 @@ var Ammo = 0
 var Rasti = 0
 var life : float = 0
 var upgradai : Array
+var kristalai : Array
 
 func _ready():
 	pass
@@ -38,6 +39,16 @@ func UpgradePrideta(i):
 		Global.upgradai.append(i)
 	else :
 		Global.upgradai[0] = i
+		
+func KristalaiSunaudota(i):
+	Global.kristalai.remove_at(i)
+	
+func KristalaiPrideta(i):
+	if Global.kristalai.size() != null:
+		Global.kristalai.append(i)
+	else:
+		Global.kristalai[0] = i
+		
 		
 func RastiDaiktai():
 	Global.Rasti += 1
