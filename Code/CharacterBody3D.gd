@@ -36,7 +36,20 @@ func _ready():
 	paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	
+	$"../DirectionalLight3D".light_energy = 3.252
+	$"../WorldEnvironment".get_environment().volumetric_fog_enabled = false
+	mat.emission_enabled = true
+	mat.albedo_color = "#6b3903"
+	mat.next_pass = null
+	$"../Map/NavigationRegion3D/Water".mesh.flip_faces = false
+	$Timer.stop()
+	$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
+	underwater = false
+	$".".set_collision_mask_value(5,true)
+	gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+	SPEED = 6 		
+	Music.filterback()
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		if get_tree().paused == false && !paused:	
@@ -78,6 +91,7 @@ func _physics_process(delta):
 		mat.emission_enabled = true
 		mat.albedo_color = "#6b3903"
 		mat.next_pass = null
+		Music.filterback()
 		$"../Map/NavigationRegion3D/Water".mesh.flip_faces = false
 		$Timer.stop()
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
@@ -107,6 +121,7 @@ func _physics_process(delta):
 			else:
 				Health += Global.life
 				Global.LifeSunaudota(Global.life)
+			Music.playsound(6)
 			emit_signal("LifeReplene", Health)
 	
 	if Input.is_action_just_pressed("Surge"):
@@ -124,6 +139,7 @@ func _physics_process(delta):
 			mat.emission_enabled = false
 			mat.albedo_color = "#4b2601"
 			mat.next_pass = caust
+			Music.filterunderwater()
 			await get_tree().create_timer(0.2).timeout
 			underwater = true
 			$Timer.wait_time = 20
@@ -155,8 +171,8 @@ func _physics_process(delta):
 				#take_damage()
 				#return			
 				
-func Hit(dir):
-	Health -= 1
+func Hit(dir, dmg):
+	Health -= dmg
 	emit_signal("PlayerHit", Health)
 	velocity += dir * HitStag
 	if (Health <= 0 ):
@@ -164,17 +180,19 @@ func Hit(dir):
 		var w = mirtis.instantiate()
 		get_parent().add_child(w)
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		Music.playsoundDeath(1)
 			
 func Drown():
 	if (underwater):
 		showtime = false
-		Health -= 1
+		Health -= 5
 		emit_signal("PlayerHit", Health)
 	if (Health <= 0 ):
 		get_tree().paused = true;
 		var w = mirtis.instantiate()
 		get_parent().add_child(w)
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
+		Music.playsoundDeath(1)
 		
 #func take_damage():
 	#Health -=1;

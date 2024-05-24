@@ -6,6 +6,7 @@ var Health = 5
 const  AttackRange = 4
 var stuck = false
 var StateMachine
+var damage = 2
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -65,7 +66,8 @@ func TargetInRange():
 func HitFinished():
 	if global_position.distance_to(Player.global_position) < AttackRange + 1.0:
 		var dir = global_position.direction_to(Player.global_position)
-		Player.Hit(dir)
+		Music.playsounPunch(7)
+		Player.Hit(dir, damage)
 
 func DeadAnim():
 	var Ammoinstance = AmmoBox.instantiate()

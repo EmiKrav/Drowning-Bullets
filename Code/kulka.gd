@@ -3,8 +3,8 @@ extends Node3D
 const SPEED = 60.0
 var velocity = Vector3.ZERO 
 
-@onready var emitter = get_tree().get_root().get_child(1)
-@onready var wm = emitter.get_node("Map/Player/MainCamera/Weapons_Manager")
+@onready var emitter = get_tree().get_root().get_child(2)
+@onready var wm = emitter.get_node("Player/MainCamera/Weapons_Manager")
 
 func _ready():
 	wm.naikintkulka.connect(naikint)

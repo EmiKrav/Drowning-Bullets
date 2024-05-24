@@ -74,3 +74,4 @@ shape = SubResource("ConcavePolygonShape3D_p6gb6")
 shape = SubResource("ConcavePolygonShape3D_33gow")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

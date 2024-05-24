@@ -6,6 +6,7 @@ var Health = 5
 const  AttackRange = 25
 var stuck = false
 var StateMachine
+var damage = 3
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -74,10 +75,11 @@ func HitFinished():
 		#ataka.seth(global_position.distance_to(Player.global_position))
 		ataka.setvelocity($".".global_position, Player.global_position)
 		world.add_child(ataka)
+		Music.playsound(3)
 		if raycast.is_colliding():
 			var hit = raycast.get_collider()
 			if hit.is_in_group("Player"):
-				Player.Hit(dir)
+				Player.Hit(dir, damage)
 
 func DeadAnim():
 	var Ammoinstance = AmmoBox.instantiate()

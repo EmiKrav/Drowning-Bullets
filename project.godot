@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Drowning Bullets"
-run/main_scene="res://Scenes/ezeras.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://Code/Global.gd"
+Music="*res://Scenes/music.tscn"
 
 [dotnet]
 

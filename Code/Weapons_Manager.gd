@@ -149,6 +149,8 @@ func _on_animation_player_animation_finished(anim_name):
 	if (anim_name == current_weapon.Shoot_Anim || anim_name == current_weapon.Zoom_AnimSauti) && current_weapon.Auto_Fire == true:
 		if Input.is_action_pressed("Shoot"):
 			shoot()
+		else :
+			Music.SoundStop()
 	if (anim_name == "pickaxe"):
 		if check == true:
 			zoom(FOV)
@@ -173,6 +175,10 @@ func shoot():
 			instance.position = BulletPoint.global_position
 			instance.setvelocity(BulletPoint.global_position, GetCameraCollision())
 			get_tree().get_root().get_child(0).add_child(instance)
+			if current_weapon.Auto_Fire == false:
+				Music.playsoundkulka(0)
+			else:
+				Music.playsoundkulkacont(0)
 			current_weapon.Current_Ammo -= 1;
 			emit_signal("UpdateAmmo", [current_weapon.Current_Ammo, current_weapon.Reserve_Ammo])
 			var CameraCollision = GetCameraCollision()
@@ -182,6 +188,7 @@ func shoot():
 				HITSCAN:
 					HitScanCollision(CameraCollision)
 	else:
+		Music.SoundStop()
 		reload()
 
 func zoom(zoomas):
@@ -206,6 +213,7 @@ func reload():
 	if current_weapon.Current_Ammo == current_weapon.Magazine:
 		return
 	elif !AnimPlayer.is_playing():
+		Music.playsound(8)
 		if Global.Ammo > 0:
 			current_weapon.Reserve_Ammo += Global.Ammo
 			Global.AmmoSunaudota(Global.Ammo)
@@ -231,7 +239,7 @@ func GetCameraCollision()->Vector3:
 	var RayOrigin = camera.project_ray_origin(viewport/2)
 	var RayEnd = RayOrigin + camera.project_ray_normal(viewport/2)*current_weapon.WeaponRange
 	
-	var NewIntersection = PhysicsRayQueryParameters3D.create(RayOrigin, RayEnd, 5,[])
+	var NewIntersection = PhysicsRayQueryParameters3D.create(RayOrigin, RayEnd,0b00000000_00000000_00000000_01001011)
 	
 	
 	
@@ -249,7 +257,7 @@ func GetCameraCollision()->Vector3:
 func HitScanCollision(CollisionPoint):
 	var BulletDirection = (CollisionPoint - BulletPoint.get_global_transform().origin).normalized()
 	var NewIntersection = PhysicsRayQueryParameters3D.create(BulletPoint.get_global_transform().origin,
-															 CollisionPoint + BulletDirection*2,5,[])
+															 CollisionPoint + BulletDirection*2,0b00000000_00000000_00000000_01001011)
 															
 	var BulletCollision = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
 	#print(BulletCollision.collider,BulletCollision.rid)
@@ -276,9 +284,10 @@ func HitScanCollision(CollisionPoint):
 		
 		HitScanDamage(BulletCollision.collider, BulletDirection, BulletCollision.position)
 		
-func  HitScanDamage(Collider, Direction, Position):	
+func  HitScanDamage(Collider, Direction, Position):
 	if Collider.is_in_group("Target") and Collider.has_method("HitS"):
 		Collider.HitS(current_weapon.Damage, Direction, Position)
+		
 		
 		emit_signal("kraujuoti")
 	

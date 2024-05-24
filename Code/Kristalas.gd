@@ -6,6 +6,7 @@ var tipai = ["Geltonas", "Raudonas", "Žalias"]
 var rng
 var ind
 var upgraidas
+var col = true
 
 func _ready():
 	rng = RandomNumberGenerator.new()
@@ -20,21 +21,25 @@ func _ready():
 	
 	var mat = $Area3D/low.get_active_material(0).duplicate()
 	$Area3D/low.set("surface_material_override/0", mat)
+	
 func MiningP():
 	Global.KristalaiPrideta(upgraidas)
 	Global.RastiDaiktai()
 	player.UpgradeUpdate()
 	
 func _on_area_3d_area_entered(area):
-	if player.get_node("%Weapons_Manager").CollectKristalus():
-		await get_tree().create_timer(1.0).timeout
-		if $Area3D/low.scale > Vector3(0.25, 0.25, 0.25):
-			$Area3D/low.scale /=2
-			MiningP()
-		else:
-			MiningP()
-			queue_free()
-		
-		
-	
+	if col :
+		col = false
+		if player.get_node("%Weapons_Manager").CollectKristalus():
+			Music.playMiningsound(5)
+			if $Area3D/low.scale > Vector3(0.25, 0.25, 0.25):
+				$Area3D/low.scale /=2
+				MiningP()
+			else:
+				MiningP()
+				queue_free()
 
+
+func _on_area_3d_area_exited(area):
+	await get_tree().create_timer(1.0).timeout
+	col = true

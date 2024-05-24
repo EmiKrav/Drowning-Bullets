@@ -2,8 +2,8 @@ extends MeshInstance3D
 
 var alpha = 1.0
 
-@onready var emitter = get_tree().get_root().get_child(1)
-@onready var wm = emitter.get_node("Map/Player/MainCamera/Weapons_Manager")
+@onready var emitter = get_tree().get_root().get_child(2)
+@onready var wm = emitter.get_node("Player/MainCamera/Weapons_Manager")
 
 func  _ready():
 	var dup_mat = material_override.duplicate()

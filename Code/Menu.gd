@@ -6,6 +6,10 @@ extends Node3D
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 	get_tree().paused = false;
+	
+	if Music.current() != 1:
+		Music.play1()
+		Music.filterback()
 
 func _on_button_pressed():
 	get_tree().change_scene_to_packed(ezeras)

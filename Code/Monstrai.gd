@@ -66,6 +66,8 @@ func Menu():
 	if get_tree().paused == false:
 		node.process_mode = PROCESS_MODE_DISABLED
 		node.set_visible(false)
+		Music.MusicStop()
+		Music.playsound(2)
 		for child in node.get_children():
 			if (child is VisibleOnScreenEnabler3D):
 				child.set_visible(false)
@@ -77,7 +79,7 @@ func Menu():
 		
 
 func _on_button_pressed():
-	
+	Music.MusicResume()
 	randomize()
 	
 	Global.KitaBanga()

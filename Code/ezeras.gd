@@ -2,7 +2,9 @@ extends Node3D
 
 @onready var HitReact = $Control/ColorRect
 
-
+func _ready():
+	if Music.current() != 2:
+		Music.play2()
 
 
 func _on_player_player_hit(_Gyvybes):
