@@ -47,14 +47,19 @@ func _physics_process(delta):
 				move_and_slide()	
 				look_at(Vector3(Player.global_position.x  + velocity.x, Player.global_position.y + velocity.y,
 					Player.global_position.z + velocity.z), Vector3.UP)
-			elif NextNavPoint.x-global_transform.origin.x > 0 || NextNavPoint.z-global_transform.origin.z > 0 :
+			elif Player.global_position.x-global_position.x > AttackRange || Player.global_position.z-global_position.z > AttackRange :
 				velocity = (NextNavPoint-global_transform.origin).normalized() * Speed
 				move_and_slide()	
 				look_at(Vector3(Player.global_position.x  + velocity.x, velocity.y,
 					Player.global_position.z + velocity.z), Vector3.UP)
 		"Punch":
-			look_at(Vector3(Player.global_position.x, Player.global_position.y,
+			if NavAgent.is_target_reachable():	
+				look_at(Vector3(Player.global_position.x, Player.global_position.y,
 					Player.global_position.z), Vector3.UP)
+			else:
+				look_at(Vector3(Player.global_position.x  + velocity.x, velocity.y,
+					Player.global_position.z + velocity.z), Vector3.UP)
+				
 							
 							
 	AnimTree.set("parameters/conditions/Punch", TargetInRange())

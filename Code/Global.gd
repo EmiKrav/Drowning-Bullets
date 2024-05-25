@@ -11,6 +11,10 @@ var geltkrist = 0;
 var rautkrist = 0;
 var zaltkrist = 0;
 
+var geltk = 0;
+var rautk = 0;
+var zaltk = 0;
+
 
 func _ready():
 	Global.kristalai[0] = ["Raudonas", geltkrist]
@@ -25,6 +29,9 @@ func Reset():
 	Global.Ammo = 0
 	Global.life = 0
 	Global.Rasti = 0
+	geltk = 0;
+	rautk = 0;
+	zaltk = 0;
 
 func AmmoPakelta(ammo):
 	Global.Ammo += ammo
@@ -61,14 +68,30 @@ func KristalaiSunaudota(i):
 func KristalaiPrideta(i):
 	if i.has("Geltonas"):
 		geltkrist += 1
+		geltk +=1
 		Global.kristalai[1][1] = geltkrist
 	if i.has("Raudonas"):
 		rautkrist += 1
+		rautk +=1
 		Global.kristalai[0][1] = rautkrist 
 	if i.has("Žalias"):
 		zaltkrist += 1
+		zaltk += 1
 		Global.kristalai[2][1] = zaltkrist  
 		
 func RastiDaiktai():
 	Global.Rasti += 1
+	
+func Mirus():
+	if Global.upgradai.size() >= 0 && Global.Rasti-geltk-rautk-zaltk > 0:
+		Global.upgradai.resize(Global.upgradai.size()-(Global.Rasti-geltk-rautk-zaltk))
+	if geltk > 0:
+		Global.kristalai[1][1] -= geltk
+		geltkrist -= geltk
+	if rautk > 0:
+		Global.kristalai[0][1] -= rautk
+		rautkrist -= rautk
+	if zaltk > 0:
+		Global.kristalai[2][1] -= zaltk
+		zaltkrist -= zaltk
 
