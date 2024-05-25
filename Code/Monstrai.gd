@@ -8,19 +8,21 @@ extends Node3D
 
 var count = 0
 var prisukiekis = 3
-
-var monstrai = preload("res://Scenes/monster.tscn")
-var monstraisuginklu = preload("res://Scenes/monstershooting.tscn")
+@onready var kris = preload("res://Scenes/Kristalas.tscn")
+@onready var monstrai = preload("res://Scenes/monster.tscn")
+@onready var monstraisuginklu = preload("res://Scenes/monstershooting.tscn")
 
 var spausta = false;
 
 signal banga
+signal spawn
 
 func _ready():
 	
-	
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	randomize()
+	
+
 	#
 	for i in prisukiekis:
 		var spawnpoint = GetRandomPlace().global_position
@@ -37,6 +39,8 @@ func _ready():
 		add_child(monstrai_instance)
 		monstrai_instance.Player = node
 		await get_tree().create_timer(0.1).timeout
+	
+
 	
 	#for child in monstrai_instance.get_children():#Iterate trough the children  
 		#print(child.get_name())
@@ -99,6 +103,8 @@ func _on_button_pressed():
 	HBox.visible = false
 
 	spausta = false
+	
+	emit_signal("spawn")
 	
 	
 	for i in prisukiekis:

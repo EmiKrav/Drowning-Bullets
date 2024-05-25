@@ -5,10 +5,17 @@ var Ammo = 0
 var Rasti = 0
 var life : float = 0
 var upgradai : Array
-var kristalai : Array
+var kristalai = [null,null,null]
+
+var geltkrist = 0;
+var rautkrist = 0;
+var zaltkrist = 0;
+
 
 func _ready():
-	pass
+	Global.kristalai[0] = ["Raudonas", geltkrist]
+	Global.kristalai[1] = ["Geltonas", rautkrist]
+	Global.kristalai[2] = ["Žalias", zaltkrist]
 
 func KitaBanga():
 	Global.banga += 1
@@ -41,14 +48,26 @@ func UpgradePrideta(i):
 		Global.upgradai[0] = i
 		
 func KristalaiSunaudota(i):
-	Global.kristalai.remove_at(i)
+	if i == 1:
+		geltkrist -= 1
+		Global.kristalai[1][1] = geltkrist
+	if i == 0:
+		rautkrist -= 1
+		Global.kristalai[0][1] = rautkrist 
+	if i == 2:
+		zaltkrist -= 1
+		Global.kristalai[2][1] = zaltkrist  
 	
 func KristalaiPrideta(i):
-	if Global.kristalai.size() != null:
-		Global.kristalai.append(i)
-	else:
-		Global.kristalai[0] = i
-		
+	if i.has("Geltonas"):
+		geltkrist += 1
+		Global.kristalai[1][1] = geltkrist
+	if i.has("Raudonas"):
+		rautkrist += 1
+		Global.kristalai[0][1] = rautkrist 
+	if i.has("Žalias"):
+		zaltkrist += 1
+		Global.kristalai[2][1] = zaltkrist  
 		
 func RastiDaiktai():
 	Global.Rasti += 1

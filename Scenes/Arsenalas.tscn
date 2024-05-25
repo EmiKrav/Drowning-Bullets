@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c72dbf65ng713"]
+[gd_scene load_steps=7 format=3 uid="uid://c72dbf65ng713"]
 
 [ext_resource type="Script" path="res://Code/ItemList.gd" id="1_h2qjl"]
 [ext_resource type="Resource" uid="uid://c4ybepliryrjc" path="res://Resource/WeaponResource/Pistol.tres" id="2_5wexv"]
 [ext_resource type="Resource" uid="uid://d1qk55e54tvvb" path="res://Resource/WeaponResource/Rifle.tres" id="3_ddo7f"]
+[ext_resource type="Resource" uid="uid://dstfhy6rymr6b" path="res://Resource/Char/char.tres" id="4_h0keu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fi043"]
 bg_color = Color(0.388235, 0.647059, 0.690196, 1)
@@ -52,6 +53,7 @@ auto_height = true
 same_column_width = true
 script = ExtResource("1_h2qjl")
 weapons = Array[Resource("res://Code/weapon_resource.gd")]([ExtResource("2_5wexv"), ExtResource("3_ddo7f")])
+char = ExtResource("4_h0keu")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Panel/CanvasLayer"]
 anchors_preset = 6
@@ -83,16 +85,13 @@ same_column_width = true
 icon_mode = 0
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="Panel/CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -61.0
-offset_top = -68.0
-offset_right = 61.0
-offset_bottom = -10.0
-grow_horizontal = 2
+offset_left = 10.0
+offset_top = -66.0
+offset_right = 132.0
+offset_bottom = -8.0
 grow_vertical = 0
 size_flags_horizontal = 6
 size_flags_vertical = 10
@@ -118,13 +117,34 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Button" type="Button" parent="Panel/CanvasLayer/VBoxContainer4"]
+[node name="Upgrade" type="Button" parent="Panel/CanvasLayer/VBoxContainer4"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 36
 text = "=>"
 
+[node name="VBoxContainer5" type="VBoxContainer" parent="Panel/CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -58.0
+offset_right = 25.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Change" type="Button" parent="Panel/CanvasLayer/VBoxContainer5"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 36
+text = "Ginklai"
+
 [connection signal="item_selected" from="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_item_selected"]
 [connection signal="item_selected" from="Panel/CanvasLayer/VBoxContainer2/ScrollContainer/GunList" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_gun_list_item_selected"]
 [connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer3/Atgal" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_atgal_pressed"]
-[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer4/Button" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer4/Upgrade" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer5/Change" to="Panel/CanvasLayer/VBoxContainer/ScrollContainer/ItemList" method="_on_change_pressed"]

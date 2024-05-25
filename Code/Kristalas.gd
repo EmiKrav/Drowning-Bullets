@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var player = get_parent().get_parent().get_node("%Player")
+@onready var player
 
 var tipai = ["Geltonas", "Raudonas", "Žalias"]
 var rng
@@ -28,12 +28,14 @@ func MiningP():
 	player.UpgradeUpdate()
 	
 func _on_area_3d_area_entered(area):
-	if col :
+	if player.get_node("%Weapons_Manager").CollectKristalus():
+			Music.playMiningsound(5)
+	if col == true:
 		col = false
 		if player.get_node("%Weapons_Manager").CollectKristalus():
 			Music.playMiningsound(5)
-			if $Area3D/low.scale > Vector3(0.25, 0.25, 0.25):
-				$Area3D/low.scale /=2
+			if $".".scale > Vector3(0.00075, 0.00075, 0.00075):
+				$".".scale /=2
 				MiningP()
 			else:
 				MiningP()
@@ -41,5 +43,5 @@ func _on_area_3d_area_entered(area):
 
 
 func _on_area_3d_area_exited(area):
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(2.0).timeout
 	col = true

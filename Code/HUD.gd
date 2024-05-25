@@ -13,8 +13,11 @@ extends CanvasLayer
 @export var zoomo : CompressedTexture2D
 @export var bezoomo : CompressedTexture2D
 
+@export var characterResource: CharacterResource
+
+
 func _ready():
-		Life.set_text("100")
+		Life.set_text(str(characterResource.MaxHealth))
 		wave.set_text("Banga: " +str(Global.banga))
 		ReserveLife.set_text("Gėrymai: " +str(Global.life))
 		ReserveAmmo.set_text("Kišenėj: " +str(Global.Ammo))

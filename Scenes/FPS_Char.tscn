@@ -1,6 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://bpwd8xwceq4yw"]
+[gd_scene load_steps=36 format=3 uid="uid://bpwd8xwceq4yw"]
 
 [ext_resource type="Script" path="res://Code/CharacterBody3D.gd" id="1_y8uxt"]
+[ext_resource type="Resource" uid="uid://dstfhy6rymr6b" path="res://Resource/Char/char.tres" id="2_7xefh"]
 [ext_resource type="Script" path="res://Code/HUD.gd" id="2_4880r"]
 [ext_resource type="Script" path="res://Code/Weapons_Manager.gd" id="2_rf484"]
 [ext_resource type="Texture2D" uid="uid://cdhfoghmo0lqp" path="res://Models/ex8erdhiq3d81.webp" id="3_pmfur"]
@@ -935,6 +936,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_5ybd2"]
 resource_name = "pickaxemine"
+length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -954,10 +956,10 @@ tracks/1/path = NodePath("Pickaxe:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.29, -0.178, -0.754378), Vector3(0.29, 0.293528, -1.08822), Vector3(0.29, -0.237818, -1.42207), Vector3(0.29, -0.178, -0.754378)]
+"values": [Vector3(0.29, -0.178, -0.754378), Vector3(0.29, 0.293528, -1.08822), Vector3(0.29, -1.08159, -1.69187), Vector3(0.29, -0.178, -0.754378)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -966,10 +968,10 @@ tracks/2/path = NodePath("Pickaxe:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6, 1),
+"times": PackedFloat32Array(0, 0.3, 0.6, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0.0267473, 1.66452, -0.277178), Vector3(0.0570478, 1.63806, -0.70259), Vector3(0.0892606, 1.60996, -1.15661), Vector3(0.0267473, 1.66452, -0.277178)]
+"values": [Vector3(0.0267473, 1.66452, -0.277178), Vector3(0.0570478, 1.63806, -0.70259), Vector3(0.0902225, 1.53391, -1.95951), Vector3(0.0267473, 1.66452, -0.277178)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aweui"]
@@ -1011,11 +1013,13 @@ radius = 15.837
 collision_layer = 4
 collision_mask = 83
 script = ExtResource("1_y8uxt")
+characterResource = ExtResource("2_7xefh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("2_4880r")
 zoomo = ExtResource("3_y1ymu")
 bezoomo = ExtResource("3_pmfur")
+characterResource = ExtResource("2_7xefh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
 anchors_preset = 2

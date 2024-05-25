@@ -8,16 +8,21 @@ var mirtis = preload("res://Scenes/Mirtis.tscn")
 var mat = preload("res://textures/terrain.tres")
 var caust = preload("res://Resource/underwater.material")
 
-var SPEED = 6
+var SPEED  :float = 6.0
+var SWIMSPEED :float = 0.0
+var acel = 3.0
 const JUMP_VELOCITY = 4.5
 const  HitStag = 5.0
 
 var CameraRotation = Vector2(0,0)
 var MouseSensitivity = 0.004
+@export var characterResource: CharacterResource
 
-var MaxHealth = 100
-var Health = 100
+		
+var MaxHealth
+var Health = MaxHealth
 
+var laikaspovandeniu
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var paused
@@ -33,6 +38,10 @@ signal DaiktasRastas
 signal zoom
 
 func _ready():
+	MaxHealth = characterResource.MaxHealth
+	Health = MaxHealth
+	laikaspovandeniu = characterResource.UnderwaterBreath
+	
 	paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -46,8 +55,7 @@ func _ready():
 	$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
 	underwater = false
 	$".".set_collision_mask_value(5,true)
-	gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-	SPEED = 6 		
+	gravity = ProjectSettings.get_setting("physics/3d/default_gravity")	
 	Music.filterback()
 
 func _input(event):
@@ -98,7 +106,6 @@ func _physics_process(delta):
 		underwater = false
 		$".".set_collision_mask_value(5,true)
 		gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
-		SPEED = 6 
 		
 	
 	if not is_on_floor() and !underwater:
@@ -108,9 +115,16 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 	elif Input.is_action_just_pressed("ui_accept") and underwater:
-		velocity.y = 2
-	
+		if velocity.y < 0:
+			velocity.y = 0;
+		elif velocity.y + 2 <= SPEED:
+			velocity.y += 2
+		else:
+			velocity.y += SPEED - velocity.y
 		
+		#velocity.y = 2
+		#SWIMSPEED = lerp(SWIMSPEED,SPEED/3,acel * delta)
+		#velocity.y = SWIMSPEED		
 		
 	if Input.is_action_just_pressed("Drink"):
 		var trukstaHp = MaxHealth - Health
@@ -128,13 +142,12 @@ func _physics_process(delta):
 		if (underwater == false  && $RayCast3D.is_colliding()):
 			mat.next_pass = caust
 			$".".set_collision_mask_value(5,false)
-			$"../Map/NavigationRegion3D/Water".mesh.flip_faces = true
 			gravity = 0
-			SPEED /=2 
 			velocity.y -= 2
-			await get_tree().create_timer(0.3).timeout
-			$"../WorldEnvironment".get_environment().volumetric_fog_enabled = true
 			$"../DirectionalLight3D".light_energy = 1
+			await get_tree().create_timer(0.3).timeout
+			$"../Map/NavigationRegion3D/Water".mesh.flip_faces = true
+			$"../WorldEnvironment".get_environment().volumetric_fog_enabled = true
 			#$"../../WorldEnvironment".get_environment().background_energy_multiplier= 0.25
 			mat.emission_enabled = false
 			mat.albedo_color = "#4b2601"
@@ -142,11 +155,18 @@ func _physics_process(delta):
 			Music.filterunderwater()
 			await get_tree().create_timer(0.2).timeout
 			underwater = true
-			$Timer.wait_time = 20
+			$Timer.wait_time = laikaspovandeniu
 			$Timer.start()
 			showtime = true
 		else:
-			velocity.y = -2
+			if velocity.y > 0:
+				velocity.y = 0;
+			elif velocity.y -2 >= -SPEED:
+				velocity.y -= 2
+			else:
+				velocity.y -= SPEED + velocity.y
+			#SWIMSPEED = lerp(SWIMSPEED,SPEED/3,acel * delta)
+			#velocity.y -= SWIMSPEED	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=2 format=3 uid="uid://dstfhy6rymr6b"]
+
+[ext_resource type="Script" path="res://Code/CharResource.gd" id="1_lipm1"]
+
+[resource]
+script = ExtResource("1_lipm1")
+Name = "Character"
+MaxHealth = 50
+UnderwaterBreath = 10

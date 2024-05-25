@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bpwd8xwceq4yw" path="res://Scenes/FPS_Char.tscn" id="4_i5d3a"]
 [ext_resource type="Script" path="res://Code/Monstrai.gd" id="6_mum3f"]
 [ext_resource type="Material" uid="uid://chd6dqjfvk6b6" path="res://Resource/water.material" id="6_uofla"]
-[ext_resource type="PackedScene" uid="uid://bfat5fla217cr" path="res://Scenes/Kristalas.tscn" id="7_7wkb0"]
+[ext_resource type="Script" path="res://Code/Kristalai.gd" id="7_o5h63"]
 [ext_resource type="Script" path="res://Code/GoBackToMenu.gd" id="8_i2e2g"]
 
 [sub_resource type="Environment" id="Environment_tkgdn"]
@@ -101,6 +101,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.466, 7.84173, 21.9766)
 [node name="Node3D8" type="Node3D" parent="Map/Monstrai"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -84.9526, 8.19657, 57.8934)
 
+[node name="Kristalai" type="Node3D" parent="Map"]
+unique_name_in_owner = true
+script = ExtResource("7_o5h63")
+
+[node name="Node3D" type="Node3D" parent="Map/Kristalai"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.6523, -14.5667, 12.9693)
+
+[node name="Node3D2" type="Node3D" parent="Map/Kristalai"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -76.212, -15.037, 12.969)
+
+[node name="Node3D3" type="Node3D" parent="Map/Kristalai"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75.0005, -13.377, 36.0462)
+
+[node name="Node3D4" type="Node3D" parent="Map/Kristalai"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.3489, -14.3568, 31.3718)
+
 [node name="CanvasLayer" type="CanvasLayer" parent="Map"]
 unique_name_in_owner = true
 visible = false
@@ -163,23 +179,9 @@ offset_right = 6049.0
 offset_bottom = 3710.0
 color = Color(0.639216, 0.0313726, 0, 0.258824)
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -58.3572, -13.5424, 33.5273)
-
-[node name="Kristalas" parent="Node3D" instance=ExtResource("7_7wkb0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.7437, -0.880596, -47.4086)
-
-[node name="Kristalas2" parent="Node3D" instance=ExtResource("7_7wkb0")]
-transform = Transform3D(1, 0, 0, 0, 0.860804, 0.508936, 0, -0.508936, 0.860804, -40.3726, 6.38746, 6.61166)
-
-[node name="Kristalas3" parent="Node3D" instance=ExtResource("7_7wkb0")]
-transform = Transform3D(0.856411, -0.516294, 0, 0.516294, 0.856411, 0, 0, 0, 1, 20.6036, 2.78409, -23.1404)
-
-[node name="Kristalas4" parent="Node3D" instance=ExtResource("7_7wkb0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
 [connection signal="PlayerHit" from="Player" to="." method="_on_player_player_hit"]
 [connection signal="banga" from="Map/Monstrai" to="Player" method="_on_monstrai_banga"]
+[connection signal="spawn" from="Map/Monstrai" to="Map/Kristalai" method="_on_monstrai_spawn"]
 [connection signal="pressed" from="Map/CanvasLayer/VBoxContainer/Continue" to="Map/Monstrai" method="_on_button_pressed"]
 [connection signal="pressed" from="Map/CanvasLayer/VBoxContainer/Continue" to="Map/CanvasLayer/VBoxContainer/Escape" method="_on_continue_pressed"]
 [connection signal="pressed" from="Map/CanvasLayer/VBoxContainer/Escape" to="Map/CanvasLayer/VBoxContainer/Escape" method="_on_esc_pressed"]
