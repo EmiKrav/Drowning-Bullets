@@ -1,0 +1,80 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://1hos2ch3tv6w"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_y7s0a"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_ues05"]
+expanded_output_ports = [0]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_maakr"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_xk7hl"]
+parameter_name = "Texture"
+
+[sub_resource type="VisualShaderNodeBillboard" id="VisualShaderNodeBillboard_jdsoo"]
+billboard_type = 2
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform sampler2D Texture;
+
+
+
+void vertex() {
+	mat4 n_out2p0;
+// GetBillboardMatrix:2
+	{
+		mat4 __mvm = VIEW_MATRIX * mat4(INV_VIEW_MATRIX[0], MODEL_MATRIX[1], vec4(normalize(cross(INV_VIEW_MATRIX[0].xyz, MODEL_MATRIX[1].xyz)), 0.0), MODEL_MATRIX[3]);
+		__mvm = __mvm * mat4(vec4(1.0, 0.0, 0.0, 0.0), vec4(0.0, 1.0 / length(MODEL_MATRIX[1].xyz), 0.0, 0.0), vec4(0.0, 0.0, 1.0, 0.0), vec4(0.0, 0.0, 0.0, 1.0));
+		n_out2p0 = __mvm;
+	}
+
+
+// Output:0
+	MODELVIEW_MATRIX = n_out2p0;
+
+
+}
+
+void fragment() {
+// Input:3
+	vec4 n_out3p0 = COLOR;
+	float n_out3p4 = n_out3p0.a;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Texture, UV);
+	float n_out2p4 = n_out2p0.a;
+
+
+// FloatOp:4
+	float n_out4p0 = n_out3p4 * n_out2p4;
+
+
+// Output:0
+	ALBEDO = vec3(n_out3p0.xyz);
+	ALPHA = n_out4p0;
+
+
+}
+"
+flags/unshaded = true
+nodes/vertex/2/node = SubResource("VisualShaderNodeBillboard_jdsoo")
+nodes/vertex/2/position = Vector2(80, 180)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 10)
+nodes/fragment/0/position = Vector2(420, -20)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_y7s0a")
+nodes/fragment/2/position = Vector2(-300, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_ues05")
+nodes/fragment/3/position = Vector2(-40, 0)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatOp_maakr")
+nodes/fragment/4/position = Vector2(220, 320)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture2DParameter_xk7hl")
+nodes/fragment/5/position = Vector2(-660, 40)
+nodes/fragment/connections = PackedInt32Array(3, 0, 0, 0, 3, 4, 4, 0, 4, 0, 0, 1, 5, 0, 2, 2, 2, 4, 4, 1)

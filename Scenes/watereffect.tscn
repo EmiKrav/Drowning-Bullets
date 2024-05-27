@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgvibp51r5325"]
+
+[ext_resource type="Script" path="res://Code/Watereffect.gd" id="1_172mu"]
+[ext_resource type="Texture2D" uid="uid://cdai4w5tcuuia" path="res://Models/water-2748638_1280.png" id="1_ayq1d"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qw6ex"]
+direction = Vector3(0, 5, 0)
+spread = 0.0
+flatness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46552"]
+transparency = 1
+albedo_texture = ExtResource("1_ayq1d")
+emission_enabled = true
+emission = Color(0.972549, 0.972549, 0.972549, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_wjhsn"]
+material = SubResource("StandardMaterial3D_46552")
+size = Vector2(3, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+script = ExtResource("1_172mu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_qw6ex")
+draw_pass_1 = SubResource("QuadMesh_wjhsn")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

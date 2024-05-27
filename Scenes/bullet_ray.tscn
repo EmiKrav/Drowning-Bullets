@@ -28,13 +28,13 @@ curve = SubResource("Curve_xlrm8")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_u3yjw"]
 direction = Vector3(0, -1, 0)
 spread = 97.967
-initial_velocity_min = 3.0
-initial_velocity_max = 6.0
+initial_velocity_min = 1.0
+initial_velocity_max = 4.0
 scale_curve = SubResource("CurveTexture_cexnq")
 
 [sub_resource type="SphereMesh" id="SphereMesh_vdwd0"]
-radius = 0.04
-height = 0.08
+radius = 0.16
+height = 0.32
 
 [node name="BulletRay" type="MeshInstance3D"]
 material_override = SubResource("StandardMaterial3D_2w2jf")
@@ -49,6 +49,7 @@ autostart = true
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_7rdxx")
 emitting = false
+lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_u3yjw")

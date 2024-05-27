@@ -7,6 +7,7 @@ var mirtis = preload("res://Scenes/Mirtis.tscn")
 
 var mat = preload("res://textures/terrain.tres")
 var caust = preload("res://Resource/underwater.material")
+@onready var Healing =  preload("res://Scenes/healing.tscn")
 
 var SPEED  :float = 6.0
 var SWIMSPEED :float = 0.0
@@ -36,6 +37,7 @@ signal LifeReplene
 signal AmmoRasta
 signal DaiktasRastas
 signal zoom
+signal mine
 
 func _ready():
 	MaxHealth = characterResource.MaxHealth
@@ -129,6 +131,8 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Drink"):
 		var trukstaHp = MaxHealth - Health
 		if Global.life > 0 && Health < MaxHealth:
+			var healingbuble = Healing.instantiate()
+			$".".add_child(healingbuble)
 			if (Global.life - trukstaHp >= 0):
 				Health += trukstaHp
 				Global.LifeSunaudota(trukstaHp)
@@ -251,3 +255,10 @@ func _on_timer_timeout():
 		Drown()
 		$Timer.wait_time = 1
 		$Timer.start()
+
+
+
+
+
+func _on_weapons_manager_nocros(mining):
+	emit_signal("mine", mining)

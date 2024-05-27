@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://f0yr56j487yf"]
+
+[ext_resource type="Texture2D" uid="uid://b7tvjh10j5pu2" path="res://Models/waterhole.png" id="1_5kd6o"]
+[ext_resource type="Script" path="res://Code/sprite_3d.gd" id="2_omuce"]
+
+[node name="Decal" type="Decal"]
+texture_albedo = ExtResource("1_5kd6o")
+script = ExtResource("2_omuce")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true
+autostart = true

@@ -15,6 +15,8 @@ extends CanvasLayer
 
 @export var characterResource: CharacterResource
 
+var tex = null
+
 
 func _ready():
 		Life.set_text(str(characterResource.MaxHealth))
@@ -68,7 +70,19 @@ func _on_player_daiktas_rastas():
 
 func _on_player_zoom(zom):
 	if (zom):
-		crosshair.texture = zoomo
+		if !crosshair.texture == null:
+			crosshair.texture = zoomo
+		tex = zoomo
 	else :
-		crosshair.texture = bezoomo
+		if !crosshair.texture == null:
+			crosshair.texture = bezoomo
+		tex = bezoomo
 		
+
+
+func _on_player_mine(mine):
+	if mine:
+		tex = crosshair.texture
+		crosshair.texture = null
+	if !mine:
+		crosshair.texture = tex

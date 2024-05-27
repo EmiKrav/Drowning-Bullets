@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 var life = 10
-@onready var player = get_parent().get_parent().get_parent().get_node("%Player")
+@onready var player = get_parent().get_parent().get_node("%Player")
 
 
 func Collectible():

@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://cgvibp51r5325"]
+
+[ext_resource type="Script" path="res://Watereffect.gd" id="1_172mu"]
+[ext_resource type="Texture2D" uid="uid://cdai4w5tcuuia" path="res://Models/water-2748638_1280.png" id="1_ayq1d"]
+
+[sub_resource type="Gradient" id="Gradient_xr2hp"]
+offsets = PackedFloat32Array(0, 0.789063)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_35vb2"]
+gradient = SubResource("Gradient_xr2hp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qw6ex"]
+direction = Vector3(0, 2, 0)
+spread = 90.0
+flatness = 0.95
+initial_velocity_max = 2.0
+color_ramp = SubResource("GradientTexture1D_35vb2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkq7v"]
+transparency = 1
+albedo_texture = ExtResource("1_ayq1d")
+albedo_texture_force_srgb = true
+emission_enabled = true
+emission = Color(0.741176, 0.913725, 0.996078, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ye862"]
+material = SubResource("StandardMaterial3D_gkq7v")
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_172mu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false
+lifetime = 0.6
+one_shot = true
+explosiveness = 1.0
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_qw6ex")
+draw_pass_1 = SubResource("QuadMesh_ye862")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

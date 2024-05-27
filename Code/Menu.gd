@@ -12,6 +12,7 @@ func _ready():
 		Music.filterback()
 
 func _on_button_pressed():
+	Music.MusicStop()
 	get_tree().change_scene_to_packed(ezeras)
 
 func _on_quit_pressed():

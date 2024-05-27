@@ -6,11 +6,15 @@ signal Mousesensiv
 signal UpdateWeaponStack
 signal naikintkulka
 signal kraujuoti
+signal taskyti
+signal nocros
 
 
 @onready var AnimPlayer = get_node("%AnimationPlayer")
 @onready var BulletPoint = get_node("%Bullet_point")
 @onready var BulletRay = preload("res://Scenes/bullet_ray.tscn")
+@onready var WaterSplash = preload("res://Scenes/watereffect.tscn")
+@onready var WaterEffect = preload("res://Scenes/sprite_3d.tscn")
 
 @onready var MainCamera = get_node("%MainCamera")
 
@@ -158,6 +162,7 @@ func _on_animation_player_animation_finished(anim_name):
 	if (anim_name == "pickaxeback"):
 		mining = false;
 		enter()
+		emit_signal("nocros", false)
 	if (anim_name == "pickaxemine"):
 		getkristals = false;
 		if Input.is_action_pressed("Shoot"):
@@ -257,27 +262,46 @@ func GetCameraCollision()->Vector3:
 func HitScanCollision(CollisionPoint):
 	var BulletDirection = (CollisionPoint - BulletPoint.get_global_transform().origin).normalized()
 	var NewIntersection = PhysicsRayQueryParameters3D.create(BulletPoint.get_global_transform().origin,
-															 CollisionPoint + BulletDirection*2,0b00000000_00000000_00000000_01001011)
+															 CollisionPoint + BulletDirection*2,0b00000000_00000000_00000000_01111011)
 															
 	var BulletCollision = get_world_3d().direct_space_state.intersect_ray(NewIntersection)
-	#print(BulletCollision.collider,BulletCollision.rid)
+	
 	
 	if BulletCollision:
-		var HitIndicator = Bullet.instantiate()
 		var world = get_tree().get_root().get_child(0)
-		world.add_child(HitIndicator)
 		var bulray = BulletRay.instantiate()
 		#bulray.draw(BulletPoint.global_position, CollisionPoint)
 		world.add_child(bulray)
+		if (BulletCollision.collider.get_collision_layer_value(6) || BulletCollision.collider.get_collision_layer_value(5)):
+			var watereffect = WaterEffect.instantiate()
+			#bulray.look_at(watereffect.global_transform.origin + BulletCollision.normal, Vector3.UP)
+			world.add_child(watereffect)
+			
+			#var splash = WaterSplash.instantiate()
+			#world.add_child(splash)
+			#splash.global_position = BulletCollision.position
+			watereffect.global_position = BulletCollision.position
+			#if BulletCollision.normal == Vector3.DOWN:
+				#watereffect.rotation_degrees.x = 90
+			#elif BulletCollision.normal != Vector3.UP:
+				#watereffect.look_at(watereffect.global_transform.origin + BulletCollision.normal, Vector3.UP)
+			#if (BulletCollision.normal != Vector3.UP and BulletCollision.normal != Vector3.DOWN):
+				#watereffect.rotate_object_local(Vector3(1,0,0),90)
+			emit_signal("taskyti")
+		else:		
+			var HitIndicator = Bullet.instantiate()
+			#bulray.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
+			world.add_child(HitIndicator)
+			HitIndicator.global_position = BulletCollision.position
+			if BulletCollision.normal == Vector3.DOWN:
+				HitIndicator.rotation_degrees.x = 90
+			elif BulletCollision.normal != Vector3.UP:
+				HitIndicator.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
+			if (BulletCollision.normal != Vector3.UP and BulletCollision.normal != Vector3.DOWN):
+				HitIndicator.rotate_object_local(Vector3(1,0,0),90)
+
 		bulray.global_position = BulletCollision.position
-		bulray.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
-		HitIndicator.global_position = BulletCollision.position
-		if BulletCollision.normal == Vector3.DOWN:
-			HitIndicator.rotation_degrees.x = 90
-		elif BulletCollision.normal != Vector3.UP:
-			HitIndicator.look_at(HitIndicator.global_transform.origin + BulletCollision.normal, Vector3.UP)
 		if (BulletCollision.normal != Vector3.UP and BulletCollision.normal != Vector3.DOWN):
-			HitIndicator.rotate_object_local(Vector3(1,0,0),90)
 			bulray.rotate_object_local(Vector3(1,0,0),90)
 		emit_signal("naikintkulka")
 		
@@ -300,6 +324,7 @@ func _on_update_weapon_stack():
 func mine():
 	if !AnimPlayer.is_playing():
 		if !mining:
+			emit_signal("nocros", true)
 			if prizoominta == true:
 				zoom(FOV)
 				check = true

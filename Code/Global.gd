@@ -15,6 +15,8 @@ var geltk = 0;
 var rautk = 0;
 var zaltk = 0;
 
+var keisti = false
+
 
 func _ready():
 	Global.kristalai[0] = ["Raudonas", geltkrist]

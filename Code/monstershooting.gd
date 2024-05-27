@@ -52,6 +52,7 @@ func _physics_process(delta):
 		"HitReact":
 			look_at(Vector3(Player.global_position.x, Player.global_position.y,
 					Player.global_position.z), Vector3.UP)
+		
 			
 							
 							

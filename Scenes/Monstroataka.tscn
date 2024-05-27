@@ -1,28 +1,175 @@
-[gd_scene load_steps=4 format=3 uid="uid://dle0usau4qaju"]
+[gd_scene load_steps=20 format=3 uid="uid://dle0usau4qaju"]
 
 [ext_resource type="Script" path="res://Code/monstroataka.gd" id="1_j2iwk"]
+[ext_resource type="Texture2D" uid="uid://c3nh33lk8btx8" path="res://Resource/black-2362253_1280.jpg" id="2_81l0u"]
+[ext_resource type="ArrayMesh" uid="uid://ymulfbfb7g7b" path="res://Models/beam.mesh" id="3_24oqm"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_8it3y"]
-radius = 0.3
-height = 3.0
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_s1ot0"]
+parameter_name = "Time"
+default_value_enabled = true
+default_value = Vector2(2, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j5gjd"]
-albedo_color = Color(0, 0.305882, 0.184314, 1)
-emission_enabled = true
-emission = Color(0, 0.305882, 0.184314, 1)
-emission_energy_multiplier = 5.0
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_kt5gb"]
+expanded_output_ports = [0]
+parameter_name = "ColorParameter"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_1gvik"]
+expanded_output_ports = [0]
+texture = ExtResource("2_81l0u")
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_fno4d"]
+default_input_values = [0, 0.0, 1, 2.0]
+operator = 2
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_m30na"]
+expanded_output_ports = [0]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_p67dw"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_af8di"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(2, 1)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_0fjdh"]
+operator = 2
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_eoxnu"]
+parameter_name = "TexturePower"
+default_value_enabled = true
+default_value = 2.0
+
+[sub_resource type="VisualShader" id="VisualShader_xr2ym"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
+
+uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform vec2 Time = vec2(2.000000, 1.000000);
+uniform sampler2D tex_frg_3;
+uniform float TexturePower = 2;
+
+
+
+void fragment() {
+// ColorParameter:11
+	vec4 n_out11p0 = ColorParameter;
+	float n_out11p4 = n_out11p0.a;
+
+
+// Input:6
+	float n_out6p0 = TIME;
+
+
+// Vector2Parameter:10
+	vec2 n_out10p0 = Time;
+
+
+// VectorOp:7
+	vec2 n_out7p0 = vec2(n_out6p0) * n_out10p0;
+
+
+// UVFunc:5
+	vec2 n_in5p1 = vec2(1.00000, 1.00000);
+	vec2 n_out5p0 = n_out7p0 * n_in5p1 + UV;
+
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, n_out5p0);
+	float n_out3p1 = n_out3p0.r;
+
+
+// FloatParameter:9
+	float n_out9p0 = TexturePower;
+
+
+// FloatOp:4
+	float n_out4p0 = n_out3p1 * n_out9p0;
+
+
+// FloatOp:8
+	float n_out8p0 = n_out11p4 * n_out4p0;
+
+
+// Output:0
+	ALBEDO = vec3(n_out11p0.xyz);
+	ALPHA = n_out8p0;
+
+
+}
+"
+graph_offset = Vector2(-201.077, 0)
+modes/cull = 2
+flags/unshaded = true
+nodes/fragment/0/position = Vector2(660, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_1gvik")
+nodes/fragment/3/position = Vector2(-120, 300)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatOp_fno4d")
+nodes/fragment/4/position = Vector2(160, 300)
+nodes/fragment/5/node = SubResource("VisualShaderNodeUVFunc_m30na")
+nodes/fragment/5/position = Vector2(-440, 300)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_p67dw")
+nodes/fragment/6/position = Vector2(-880, 320)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_af8di")
+nodes/fragment/7/position = Vector2(-560, 420)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatOp_0fjdh")
+nodes/fragment/8/position = Vector2(286.383, 154.886)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_eoxnu")
+nodes/fragment/9/position = Vector2(140, 520)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVec2Parameter_s1ot0")
+nodes/fragment/10/position = Vector2(-960, 420)
+nodes/fragment/11/node = SubResource("VisualShaderNodeColorParameter_kt5gb")
+nodes/fragment/11/position = Vector2(-140, -60)
+nodes/fragment/connections = PackedInt32Array(6, 0, 7, 0, 10, 0, 7, 1, 8, 0, 0, 1, 4, 0, 8, 1, 9, 0, 4, 1, 11, 4, 8, 0, 3, 1, 4, 0, 7, 0, 5, 2, 5, 0, 3, 0, 11, 0, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3cm0t"]
+render_priority = 0
+shader = SubResource("VisualShader_xr2ym")
+shader_parameter/ColorParameter = Color(0.996078, 0.0823529, 0, 0.968627)
+shader_parameter/Time = Vector2(0, 0.02)
+shader_parameter/TexturePower = 20.0
+
+[sub_resource type="Curve" id="Curve_cwl2s"]
+max_value = 0.5
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_2c0w0"]
+max_value = 25.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1e-05, 25), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_n4erj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_l3uh2"]
+curve_x = SubResource("Curve_cwl2s")
+curve_y = SubResource("Curve_2c0w0")
+curve_z = SubResource("Curve_n4erj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ncbx3"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveXYZTexture_l3uh2")
 
 [node name="MonstroAtaka" type="Node3D"]
 script = ExtResource("1_j2iwk")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_8it3y")
-surface_material_override/0 = SubResource("StandardMaterial3D_j5gjd")
-
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.00938978, 0.999956, 0, -0.999956, -0.00938978, 0, 0, 0.991413)
+material_override = SubResource("ShaderMaterial_3cm0t")
+cast_shadow = 0
+emitting = false
+amount = 1
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ncbx3")
+draw_pass_1 = ExtResource("3_24oqm")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

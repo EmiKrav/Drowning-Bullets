@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=3 uid="uid://dtjsoxmhtkpg0"]
+
+[ext_resource type="Shader" uid="uid://1hos2ch3tv6w" path="res://shader/healing.tres" id="1_mh7dw"]
+[ext_resource type="Texture2D" uid="uid://bxelrk2lel3vd" path="res://shader/blue-157652_1280.png" id="2_q36ru"]
+[ext_resource type="Script" path="res://Code/healing.gd" id="3_1rul3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x4ur1"]
+render_priority = 0
+shader = ExtResource("1_mh7dw")
+shader_parameter/Texture = ExtResource("2_q36ru")
+
+[sub_resource type="Curve" id="Curve_nglqa"]
+_data = [Vector2(0.00704225, 1), 0.0, 0.0, 0, 0, Vector2(0.485915, 0.990688), 0.0, 0.0, 0, 0, Vector2(0.989437, 0.00358164), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_kg35u"]
+texture_mode = 1
+curve = SubResource("Curve_nglqa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qabu7"]
+lifetime_randomness = 0.5
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 5.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 10, 0)
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+color = Color(0.764706, 0.105882, 0.0313726, 1)
+alpha_curve = SubResource("CurveTexture_kg35u")
+
+[sub_resource type="QuadMesh" id="QuadMesh_waxm8"]
+size = Vector2(0.5, 0.5)
+
+[node name="GPUParticles3D" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_x4ur1")
+emitting = false
+amount = 32
+lifetime = 5.0
+one_shot = true
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_qabu7")
+draw_pass_1 = SubResource("QuadMesh_waxm8")
+script = ExtResource("3_1rul3")

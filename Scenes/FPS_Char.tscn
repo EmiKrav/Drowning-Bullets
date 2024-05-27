@@ -1006,8 +1006,9 @@ material = SubResource("StandardMaterial3D_4m8u8")
 transparency = 1
 albedo_texture = ExtResource("9_ijxvl")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ingdx"]
-radius = 15.837
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_4m66j"]
+height = 10.0
+radius = 15.0
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 4
@@ -1016,6 +1017,7 @@ script = ExtResource("1_y8uxt")
 characterResource = ExtResource("2_7xefh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 script = ExtResource("2_4880r")
 zoomo = ExtResource("3_y1ymu")
 bezoomo = ExtResource("3_pmfur")
@@ -1053,6 +1055,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_pmfur")
 stretch_mode = 3
 
@@ -1178,7 +1181,7 @@ collision_mask = 8
 script = ExtResource("10_ytx0w")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_ingdx")
+shape = SubResource("CylinderShape3D_4m66j")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.132227, 0)
@@ -1195,12 +1198,14 @@ one_shot = true
 [connection signal="DaiktasRastas" from="." to="CanvasLayer" method="_on_player_daiktas_rastas"]
 [connection signal="LifeReplene" from="." to="CanvasLayer" method="_on_player_life_replene"]
 [connection signal="PlayerHit" from="." to="CanvasLayer" method="_on_player_player_hit"]
+[connection signal="mine" from="." to="CanvasLayer" method="_on_player_mine"]
 [connection signal="zoom" from="." to="CanvasLayer" method="_on_player_zoom"]
 [connection signal="AmmoRasta" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_ammo_rasta"]
 [connection signal="Mousesensiv" from="MainCamera/Weapons_Manager" to="." method="_on_weapons_manager_mousesensiv"]
 [connection signal="UpdateAmmo" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_update_ammo"]
 [connection signal="UpdateWeaponStack" from="MainCamera/Weapons_Manager" to="MainCamera/Weapons_Manager" method="_on_update_weapon_stack"]
 [connection signal="WeaponChanged" from="MainCamera/Weapons_Manager" to="CanvasLayer" method="_on_weapons_manager_weapon_changed"]
+[connection signal="nocros" from="MainCamera/Weapons_Manager" to="." method="_on_weapons_manager_nocros"]
 [connection signal="animation_finished" from="MainCamera/Weapons_Manager/FPS_Rig/AnimationPlayer" to="MainCamera/Weapons_Manager" method="_on_animation_player_animation_finished"]
 [connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
