@@ -10,8 +10,10 @@ func _input(event):
 			queue_free()
 
 func _on_leave_pressed():
-	Global.Mirus()
+	#Global.Mirus()
 	Global.Reset()
 	get_tree().paused = false;
+	if Music.muted:
+		Music.MusicStop()
 	get_tree().change_scene_to_file("res://Scenes/Menu.tscn")
 

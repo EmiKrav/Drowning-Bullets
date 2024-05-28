@@ -244,6 +244,12 @@ func GetCameraCollision()->Vector3:
 	var RayOrigin = camera.project_ray_origin(viewport/2)
 	var RayEnd = RayOrigin + camera.project_ray_normal(viewport/2)*current_weapon.WeaponRange
 	
+	#print(RayEnd)
+	if Global.underwater:
+		RayEnd -= Vector3(0,100,0)
+		#print(RayEnd)
+	
+	
 	var NewIntersection = PhysicsRayQueryParameters3D.create(RayOrigin, RayEnd,0b00000000_00000000_00000000_01001011)
 	
 	

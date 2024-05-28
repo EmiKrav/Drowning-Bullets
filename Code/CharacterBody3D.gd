@@ -56,6 +56,7 @@ func _ready():
 	$Timer.stop()
 	$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
 	underwater = false
+	Global.underwater = false
 	$".".set_collision_mask_value(5,true)
 	gravity = ProjectSettings.get_setting("physics/3d/default_gravity")	
 	Music.filterback()
@@ -106,6 +107,7 @@ func _physics_process(delta):
 		$Timer.stop()
 		$CanvasLayer/VBoxContainer4/HBoxContainer/Label.text = ""
 		underwater = false
+		Global.underwater = false
 		$".".set_collision_mask_value(5,true)
 		gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		
@@ -159,6 +161,7 @@ func _physics_process(delta):
 			Music.filterunderwater()
 			await get_tree().create_timer(0.2).timeout
 			underwater = true
+			Global.underwater = true
 			$Timer.wait_time = laikaspovandeniu
 			$Timer.start()
 			showtime = true

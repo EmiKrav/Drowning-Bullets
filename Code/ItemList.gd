@@ -1,6 +1,17 @@
 extends ItemList
 
 @onready var guns = get_node("%GunList")
+@onready var itemSprite = preload("res://Models/guns-p.png")
+@onready var itemSprite2 = preload("res://Models/guns-34272_1920.png")
+@onready var itemSprite3 = preload("res://Models/target-158129_1280.png")
+@onready var itemSprite4 = preload("res://Models/ammunition-147535_1280.png")
+@onready var itemSprite5 = preload("res://Models/ammo.png")
+@onready var itemSprite6 = preload("res://Models/godotchar.png")
+@onready var itemSprite7 = preload("res://Models/heart.png")
+@onready var itemSprite8 = preload("res://Models/fish-3487738_1280.png")
+@onready var itemSprite9 = preload("res://Models/stone2.png")
+@onready var itemSprite10 = preload("res://Models/stone3.png")
+@onready var itemSprite11 = preload("res://Models/stone-576371_1280.png")
 
 @export var weapons: Array[Weapons_Resource]
 
@@ -23,11 +34,26 @@ func _ready():
 		for i in Global.upgradai:
 			for y in i:
 				item += str(y) + " "
+				if str(y) == "Damage":
+					add_icon_item(itemSprite3)
+				if str(y) == "Magazine":
+					add_icon_item(itemSprite4)
+				if str(y) == "Max Ammo":
+					add_icon_item(itemSprite5)
 			add_item(item,null,true)
 			item = "" 
 	for weapon in weapons:
-		gun += weapon.Weapon_Name + '\n'+ " Damage: " + str(weapon.Damage) + '\n'+ " Magazine: " + str(weapon.Magazine) + '\n'+ " Max Ammo: " + str(weapon.Max_Ammo) 
-		guns.add_item(gun,null,true)
+		gun = weapon.Weapon_Name 
+		if weapon.Weapon_Name == "Pistol":
+			guns.add_item(gun,itemSprite,true)
+		else:
+			guns.add_item(gun,itemSprite2,true)
+		gun = " Damage: " + str(weapon.Damage)
+		guns.add_item(gun,itemSprite3,true)
+		gun = " Magazine: " + str(weapon.Magazine)
+		guns.add_item(gun,itemSprite4,true)
+		gun = " Max Ammo: " + str(weapon.Max_Ammo) 
+		guns.add_item(gun,itemSprite5,true)
 		gun =""
 
 
@@ -39,6 +65,10 @@ func _on_atgal_pressed():
 func _on_button_pressed():
 	if upgradeitem == "ginklai":
 		if(itemsel != null && gunsel != null):
+			if itemsel != 0:
+				itemsel /= 2;
+			if gunsel != 0:
+				gunsel /=4
 			if (Global.upgradai[itemsel][0] == "Damage"):
 				weapons[gunsel].Damage += Global.upgradai[itemsel][1]
 			if (Global.upgradai[itemsel][0] == "Magazine"):
@@ -52,15 +82,34 @@ func _on_button_pressed():
 				for i in Global.upgradai:
 					for y in i:
 						item += str(y) + " "
+						if str(y) == "Damage":
+							add_icon_item(itemSprite3)
+						if str(y) == "Magazine":
+							add_icon_item(itemSprite4)
+						if str(y) == "Max Ammo":
+							add_icon_item(itemSprite5)
 					add_item(item,null,true)
 					item = "" 
 			guns.clear()
 			for weapon in weapons:
-				gun += weapon.Weapon_Name + '\n'+ " Damage: " + str(weapon.Damage) + '\n'+ " Magazine: " + str(weapon.Magazine) + '\n'+ " Max Ammo: " + str(weapon.Max_Ammo)
-				guns.add_item(gun,null,true)
+				gun = weapon.Weapon_Name 
+				if weapon.Weapon_Name == "Pistol":
+					guns.add_item(gun,itemSprite,true)
+				else:
+					guns.add_item(gun,itemSprite2,true)
+				gun = " Damage: " + str(weapon.Damage)
+				guns.add_item(gun,itemSprite3,true)
+				gun = " Magazine: " + str(weapon.Magazine)
+				guns.add_item(gun,itemSprite4,true)
+				gun = " Max Ammo: " + str(weapon.Max_Ammo) 
+				guns.add_item(gun,itemSprite5,true)
 				gun =""
 	else:
 		if(itemsel != null && gunsel != null):
+			if itemsel != 0:
+				itemsel /= 2;
+			if gunsel != 0:
+				gunsel /=4
 			if Global.kristalai[itemsel][1] > 0:
 				if (Global.kristalai[itemsel][0] == "Geltonas"):
 					char.UnderwaterBreath += 1
@@ -75,11 +124,21 @@ func _on_button_pressed():
 				for i in Global.kristalai:
 					for y in i:
 						item += str(y) + " "
+						if str(y) == "Geltonas":
+							add_icon_item(itemSprite9)
+						if str(y) == "Žalias":
+							add_icon_item(itemSprite10)
+						if str(y) == "Raudonas":
+							add_icon_item(itemSprite11)
 					add_item(item,null,true)
-					item = "" 
+					item = ""
 			guns.clear()
-			gun += str(char.Name) + '\n'+" HP: " + str(char.MaxHealth) + '\n'+ " Underwater time: " + str(char.UnderwaterBreath)
-			guns.add_item(gun,null,true)
+			gun = str(char.Name) 
+			guns.add_item(gun,itemSprite6,true)
+			gun = " HP: " + str(char.MaxHealth)
+			guns.add_item(gun,itemSprite7,true) 
+			gun =" Underwater time: " + str(char.UnderwaterBreath)
+			guns.add_item(gun,itemSprite8,true)
 			gun =""
 
 
@@ -98,12 +157,22 @@ func _on_change_pressed():
 			clear()
 			for i in Global.kristalai:
 				for y in i:
-					item += str(y) + " "
+						item += str(y) + " "
+						if str(y) == "Geltonas":
+							add_icon_item(itemSprite9)
+						if str(y) == "Žalias":
+							add_icon_item(itemSprite10)
+						if str(y) == "Raudonas":
+							add_icon_item(itemSprite11)
 				add_item(item,null,true)
-				item = "" 
+				item = ""
 			guns.clear() 			
-			gun += str(char.Name) + '\n'+" HP: " + str(char.MaxHealth) + '\n'+ " Underwater time: " + str(char.UnderwaterBreath)
-			guns.add_item(gun,null,true)
+			gun = str(char.Name) 
+			guns.add_item(gun,itemSprite6,true)
+			gun = " HP: " + str(char.MaxHealth)
+			guns.add_item(gun,itemSprite7,true) 
+			gun =" Underwater time: " + str(char.UnderwaterBreath)
+			guns.add_item(gun,itemSprite8,true)
 			gun =""
 		$"../../../VBoxContainer5/Change".text = "Veikėjas"
 	elif upgradeitem == "veikejas":
@@ -113,11 +182,26 @@ func _on_change_pressed():
 			for i in Global.upgradai:
 				for y in i:
 					item += str(y) + " "
+					if str(y) == "Damage":
+						add_icon_item(itemSprite3)
+					if str(y) == "Magazine":
+						add_icon_item(itemSprite4)
+					if str(y) == "Max Ammo":
+						add_icon_item(itemSprite5)
 				add_item(item,null,true)
 				item = "" 
 			guns.clear() 	
 			for weapon in weapons:
-				gun += weapon.Weapon_Name + '\n'+ " Damage: " + str(weapon.Damage) + '\n'+ " Magazine: " + str(weapon.Magazine) + '\n'+ " Max Ammo: " + str(weapon.Max_Ammo) 
-				guns.add_item(gun,null,true)
+				gun = weapon.Weapon_Name 
+				if weapon.Weapon_Name == "Pistol":
+					guns.add_item(gun,itemSprite,true)
+				else:
+					guns.add_item(gun,itemSprite2,true)
+				gun = " Damage: " + str(weapon.Damage)
+				guns.add_item(gun,itemSprite3,true)
+				gun = " Magazine: " + str(weapon.Magazine)
+				guns.add_item(gun,itemSprite4,true)
+				gun = " Max Ammo: " + str(weapon.Max_Ammo) 
+				guns.add_item(gun,itemSprite5,true)
 				gun =""
 		$"../../../VBoxContainer5/Change".text = "Ginklai"

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dt6iow36sf5vo"]
+
+[ext_resource type="Script" path="res://Scenes/splashscene.gd" id="1_fgvfm"]
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_lcqv1"]
+file = "res://Untitled design.ogv"
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_fgvfm")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stream = SubResource("VideoStreamTheora_lcqv1")
+autoplay = true
+expand = true
+
+[connection signal="finished" from="VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://nabsb2h2n4bn"]
+[gd_scene load_steps=3 format=3 uid="uid://nabsb2h2n4bn"]
 
 [ext_resource type="Script" path="res://Code/Pause.gd" id="1_fetjn"]
+[ext_resource type="FontFile" uid="uid://ylvptlhficyq" path="res://Scenes/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="2_jslgn"]
 
 [node name="Pause" type="Node3D"]
 process_mode = 2
@@ -25,6 +26,7 @@ modulate = Color(1, 0.443137, 0.0705882, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_jslgn")
 theme_override_font_sizes/font_size = 100
 text = "Pristabdyta"
 horizontal_alignment = 1
@@ -35,6 +37,7 @@ modulate = Color(1, 0.443137, 0.0705882, 1)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("2_jslgn")
 theme_override_font_sizes/font_size = 100
 text = "Pasiduoti"
 

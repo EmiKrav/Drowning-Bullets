@@ -1,15 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://bn31loa1jip2k"]
+[gd_scene load_steps=13 format=3 uid="uid://bn31loa1jip2k"]
 
 [ext_resource type="Texture2D" uid="uid://c1qjjhp4lkqfy" path="res://textures/spring-8670806_1920.jpg" id="1_qtxje"]
 [ext_resource type="Script" path="res://Code/Menu.gd" id="1_tcgxk"]
+[ext_resource type="PackedScene" uid="uid://dt6iow36sf5vo" path="res://Scenes/splashscene.tscn" id="2_c43bh"]
+[ext_resource type="FontFile" uid="uid://ylvptlhficyq" path="res://Scenes/xolonium/xolonium-fonts-4.1/ttf/Xolonium-Bold.ttf" id="3_05bss"]
+[ext_resource type="Texture2D" uid="uid://bl4cgjouhihns" path="res://Models/sound.png" id="4_4yclk"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wakbc"]
 texture = ExtResource("1_qtxje")
 
+[sub_resource type="ImageTexture" id="ImageTexture_y30qk"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_3snpx"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_wy54n"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_i1df1"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_noby7"]
+color = Color(0, 0, 0, 0.576471)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 50
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_u1o73"]
+color = Color(1, 1, 1, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 50
+
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_tcgxk")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="VideoStreamPlayer" parent="." instance=ExtResource("2_c43bh")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,41 +47,84 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_wakbc")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Panel"]
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CanvasLayer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 10.0
-offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Start" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+[node name="Start" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
+theme_override_fonts/font = ExtResource("3_05bss")
 theme_override_font_sizes/font_size = 100
 text = "Pradėti"
 
-[node name="Arsenal" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+[node name="Arsenal" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 6
+theme_override_fonts/font = ExtResource("3_05bss")
 theme_override_font_sizes/font_size = 100
 text = "Sandelys
 "
 
-[node name="Quit" type="Button" parent="Panel/CanvasLayer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="Muzika" type="Button" parent="CanvasLayer/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(7.70092e-07, 0.404256, 0.219764, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.403922, 0.219608, 1)
+theme_override_colors/font_hover_color = Color(0, 0.403922, 0.219608, 1)
+theme_override_colors/font_focus_color = Color(0, 0.403922, 0.219608, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.403922, 0.219608, 1)
+theme_override_fonts/font = ExtResource("3_05bss")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("4_4yclk")
+expand_icon = true
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 3
+theme_override_icons/grabber = SubResource("ImageTexture_y30qk")
+theme_override_icons/grabber_highlight = SubResource("ImageTexture_3snpx")
+theme_override_icons/grabber_disabled = SubResource("ImageTexture_wy54n")
+theme_override_icons/tick = SubResource("ImageTexture_i1df1")
+theme_override_styles/slider = SubResource("StyleBoxLine_noby7")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_u1o73")
+min_value = -80.0
+max_value = 0.0
+value = -40.0
+
+[node name="Quit" type="Button" parent="CanvasLayer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_fonts/font = ExtResource("3_05bss")
 theme_override_font_sizes/font_size = 100
 text = "Išeiti"
 
-[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer/Start" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer/Arsenal" to="." method="_on_arsenal_pressed"]
-[connection signal="pressed" from="Panel/CanvasLayer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Start" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Arsenal" to="." method="_on_arsenal_pressed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/VBoxContainer/HBoxContainer/Muzika" to="." method="_on_muzika_pressed"]
+[connection signal="drag_ended" from="CanvasLayer/Panel/VBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_h_slider_drag_ended"]
+[connection signal="value_changed" from="CanvasLayer/Panel/VBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Panel/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

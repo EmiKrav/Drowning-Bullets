@@ -7,7 +7,9 @@ func _process(delta):
 	if count == 10:
 		count = 0
 		get_tree().paused = false;
-		if Music.current() != 2:
+		if Music.muted:
+			Music.MusicStop()
+		if !Music.muted and Music.current() != 2:
 			Music.play2()
 		$"../../../Control/ColorRect".visible = false
 		$"../../../Control/ColorRect".color = Color(0.639, 0.031, 0, 0.259)

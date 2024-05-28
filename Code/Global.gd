@@ -7,21 +7,42 @@ var life : float = 0
 var upgradai : Array
 var kristalai = [null,null,null]
 
-var geltkrist = 0;
-var rautkrist = 0;
-var zaltkrist = 0;
+var geltkrist = 2;
+var rautkrist = 2;
+var zaltkrist = 2;
 
 var geltk = 0;
 var rautk = 0;
 var zaltk = 0;
 
 var keisti = false
-
+var underwater = false
+var paleistas = false
+#########################################################
+var tipai = ["Damage", "Magazine", "Max Ammo"]
+var rng
+var ind2
+var ind
 
 func _ready():
 	Global.kristalai[0] = ["Raudonas", geltkrist]
 	Global.kristalai[1] = ["Geltonas", rautkrist]
 	Global.kristalai[2] = ["Žalias", zaltkrist]
+	
+	rng = RandomNumberGenerator.new()
+	ind2 = rng.randi_range(1, 5)
+	ind = rng.randi_range(0, 2)
+	Global.UpgradePrideta([tipai[ind], ind2])
+	
+	rng = RandomNumberGenerator.new()
+	ind2 = rng.randi_range(1, 5)
+	ind = rng.randi_range(0, 2)
+	Global.UpgradePrideta([tipai[ind], ind2])
+	
+	rng = RandomNumberGenerator.new()
+	ind2 = rng.randi_range(1, 5)
+	ind = rng.randi_range(0, 2)
+	Global.UpgradePrideta([tipai[ind], ind2])
 
 func KitaBanga():
 	Global.banga += 1

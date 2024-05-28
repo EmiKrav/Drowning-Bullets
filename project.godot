@@ -14,12 +14,19 @@ config/name="Drowning Bullets"
 run/main_scene="res://Scenes/Menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/max_fps=60
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/show_image=false
+config/icon="res://blpng.png"
+config/windows_native_icon="res://bluei2.ico"
 
 [autoload]
 
 Global="*res://Code/Global.gd"
 Music="*res://Scenes/music.tscn"
+
+[display]
+
+window/size/mode=4
 
 [dotnet]
 

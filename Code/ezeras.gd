@@ -4,6 +4,10 @@ extends Node3D
 
 		
 func _ready():
+	if Music.muted:
+		Music.MusicStop()
+	if !Music.muted and Music.current() != 2:
+		Music.play2()
 	if !Global.keisti:
 		get_tree().paused = true;
 		
